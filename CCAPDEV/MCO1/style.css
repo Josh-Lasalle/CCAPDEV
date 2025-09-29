@@ -1,3 +1,9 @@
+
+body {
+    color: black;
+  }
+
+
 .c-item{
     height: 480px;
     width: 960px;
@@ -22,7 +28,7 @@
 }
 
 .main_wrap{
-    background-color: rgba(225, 224, 224, 0.704);
+    background-color: rgba(232, 192, 249, 0.601);
     display: flex;
 }
 
