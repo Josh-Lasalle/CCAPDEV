@@ -16,6 +16,7 @@
 </head>
 <body>
 
+<!-- Header -->
 <header>
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
@@ -56,7 +57,7 @@
  </header>
 
 
-<!--carousel-->
+<!-- Carousel -->
 <div class="main_wrap">
 <section class="head_wrapper1"> 
     <h6> Flights </h6>
@@ -93,13 +94,28 @@
 </div>
 </div>
 
-<!--table-->
+<!-- Form Inputs -->
 <form id="myform">
-    <table>
-         <tr>
+    <table class="table table-bordered">
+        <tr>
+            <td> <h6> Input origin </h6></td>
+            <td> <input type="text" /> </td>
+            <td> <h6> Select a destination </h6></td>
+            <td> <input type="text" /> </td>
+        </tr>
+        <tr>
             <td> <h6> Select a departure date </h6></td>
             <td> <input type="date" /> </td>
+            <td> <h6> Select a returning date </h6></td>
+            <td> <input type="date" /> </td>
         </tr>
+        <tr>
+            <td> <h6> Passenger count </h6></td>
+            <td> <input type="number" /> </td>
+            <td colspan="2"> <button class="btn btn-outline-success" type="submit">Search flights</button> </td>
+        </tr>
+
+
     </table>
 </form>
 
