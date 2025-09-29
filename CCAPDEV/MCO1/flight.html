@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body class="bg-dark bg-gradient">
 
 <!-- Header -->
 <header>
@@ -69,15 +69,15 @@
 </section> 
 
 <div class="head_wrapper2">
-<div id="carouselExampleCaptions" class="carousel slide">
+<ddiv id="carouselExampleDark" class="carousel carousel-dark slide">
   <div class="carousel-indicators carousel-dark">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
 
   <div class="carousel-inner">
-      <div class="carousel-item active c-item">
+      <div class="carousel-item active c-item" data-bs-interval="10000">
       <img src="images/slide1.png" class="d-block w-100 c-img" alt="flight">
     </div>
     
@@ -88,10 +88,19 @@
     <div class="carousel-item c-item">
       <img src="images/slide3.png" class="d-block w-100 c-img" alt="why choose us?">
     </div>
-    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
 
   </div>
-</div>
+    
+  </div>
 </div>
 
 <!-- Form Inputs -->
@@ -99,9 +108,26 @@
     <table class="table table-bordered">
         <tr>
             <td> <h6> Input origin </h6></td>
-            <td> <input type="text" /> </td>
+            <td> 
+                  <select>
+                    <option value="manila"> Manila (MNL) </option>
+                    <option value="beijing"> Beijing (BJS) </option>
+                    <option value="rome"> Rome (ROM) </option>
+                    <option value="san_francisco"> San Francisco (SFO) </option>
+                    <option value="seoul"> Seoul (SEL) </option>
+                  </select>
+              
+            </td>
             <td> <h6> Select a destination </h6></td>
-            <td> <input type="text" /> </td>
+            <td> 
+              <select>
+                    <option value="manila"> Manila (MNL) </option>
+                    <option value="beijing"> Beijing (BJS) </option>
+                    <option value="rome"> Rome (ROM) </option>
+                    <option value="san_francisco"> San Francisco (SFO) </option>
+                    <option value="seoul"> Seoul (SEL) </option>
+                  </select>
+            </td>
         </tr>
         <tr>
             <td> <h6> Select a departure date </h6></td>
@@ -114,10 +140,52 @@
             <td> <input type="number" /> </td>
             <td colspan="2"> <button class="btn btn-outline-success" type="submit">Search flights</button> </td>
         </tr>
+    </table>
+</form>
+
+<!-- RAHHH -->
+<div class="main_wrap">
+  <div>
+      <h6> Departing flight</h6>
+  </div>
+  
+  <div>
+    <table class="table table-striped-columns">
+      <tr>
+        <td>
+          05:30 - 08:05
+        </td>
+
+        <td>
+          CX974
+        </td>
+
+        <td>
+          USD303.20
+        </td>
+      </tr>
+  
+      <tr>
+        <td>
+          08:00 - 10:35
+        </td>
+
+        <td>
+          CX912
+        </td>
+
+        <td>
+          USD260.20
+        </td>
+      </tr>
 
 
     </table>
-</form>
+  </div>
+
+</div>
+
+
 
 </body>
 </html>
