@@ -104,12 +104,13 @@
 </div>
 
 <!-- Form Inputs -->
-<form id="myform">
+<form id="myform" class="gap">
     <table class="table table-bordered">
         <tr>
             <td> <h6> Input origin </h6></td>
             <td> 
-                  <select>
+                  <select id="origin">
+                    <option> -- Choose Country -- </option>
                     <option value="manila"> Manila (MNL) </option>
                     <option value="beijing"> Beijing (BJS) </option>
                     <option value="rome"> Rome (ROM) </option>
@@ -121,12 +122,13 @@
             <td> <h6> Select a destination </h6></td>
             <td> 
               <select>
+                    <option> -- Choose Country -- </option>
                     <option value="manila"> Manila (MNL) </option>
                     <option value="beijing"> Beijing (BJS) </option>
                     <option value="rome"> Rome (ROM) </option>
                     <option value="san_francisco"> San Francisco (SFO) </option>
                     <option value="seoul"> Seoul (SEL) </option>
-                  </select>
+                </select>
             </td>
         </tr>
         <tr>
@@ -144,11 +146,11 @@
 </form>
 
 <!-- RAHHH -->
-<div class="main_wrap">
+
   <div>
       <h6> Departing flight</h6>
   </div>
-  
+
   <div>
     <table class="table table-striped-columns">
       <tr>
@@ -183,9 +185,9 @@
     </table>
   </div>
 
-</div>
 
 
 
 </body>
+<script sc="script.js"></script>
 </html>
