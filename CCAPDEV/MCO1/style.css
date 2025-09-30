@@ -1,6 +1,7 @@
 
 body {
     color: black;
+    background-color: #0B0F19;
   }
 
 
@@ -28,7 +29,7 @@ body {
 }
 
 .main_wrap{
-    background-color: rgba(232, 192, 249, 0.601);
+    background-color: #0E1524;
     display: flex;
 }
 
@@ -37,10 +38,29 @@ body {
     text-align: right;
 }
 
-table{
-    border: 1px solid;
-}
-
 .gap{
     padding: 50px 70px;
+}
+
+h1, h2, h3, h4, h5 {
+  color: #E6EEF8;
+}
+
+h6{
+    color: #8B5CF6;
+}
+
+p{
+    color: #AAB7C9;
+}
+
+hr{
+    color: white;
+    width: 500px;
+    margin: auto;
+}
+
+.align-center{
+   text-align: center;
+   margin-top: 60px;
 }
