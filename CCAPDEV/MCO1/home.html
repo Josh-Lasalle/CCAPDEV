@@ -65,7 +65,7 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-<button type="button" class="btn btn-primary">Book Now</button>
+<button type="button" class="btn btn-primary">Get Latest Offers</button>
 </section> 
 
 <div class="head_wrapper2">
@@ -109,8 +109,8 @@
         <tr>
             <td> <h6> Input origin </h6></td>
             <td> 
-                  <select id="origin">
-                    <option> -- Choose Country -- </option>
+                  <select id="origin" required>
+                    <option selected value=""> -- Choose Country -- </option>
                     <option value="manila"> Manila (MNL) </option>
                     <option value="beijing"> Beijing (BJS) </option>
                     <option value="rome"> Rome (ROM) </option>
@@ -121,8 +121,8 @@
             </td>
             <td> <h6> Select a destination </h6></td>
             <td> 
-              <select>
-                    <option> -- Choose Country -- </option>
+              <select id="destination" required>
+                    <option selected value=""> -- Choose Country -- </option>
                     <option value="manila"> Manila (MNL) </option>
                     <option value="beijing"> Beijing (BJS) </option>
                     <option value="rome"> Rome (ROM) </option>
@@ -133,17 +133,30 @@
         </tr>
         <tr>
             <td> <h6> Select a departure date </h6></td>
-            <td> <input type="date" /> </td>
+            <td> <input type="date" required/> </td>
             <td> <h6> Select a returning date </h6></td>
-            <td> <input type="date" /> </td>
+            <td> <input type="date" required/> </td>
         </tr>
         <tr>
             <td> <h6> Passenger count </h6></td>
-            <td> <input type="number" /> </td>
+            <td> <input type="number" min="1" max="9" required/> </td>
             <td colspan="2"> <input type="submit" class="btn btn-outline-success"  value="Search flights" /></td>
         </tr>
     </table>
 </form>
+
+<!-- Cards -->
+<div class="gap">
+  <div class="card" style="width: 18rem;">
+    <img src="images/manila.png" class="card-img-top" alt="manila">
+    <div class="card-body">
+      <h5 class="Manila">Manila</h5>
+      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <a href="#" class="btn btn-primary">Book Now</a>
+    </div>
+  </div>
+</div>
+
 
 <script sc="script.js"></script>
 </body>
