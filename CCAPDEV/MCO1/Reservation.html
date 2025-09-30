@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC01 | Reservation</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style2.css">
+
+    </head>
+
+    <header>
+
+    </header>
+
+
+    <body>
+        <h1>Reservation Form</h1>
+            <form>
+              <table class="userInfoTable">
+                <tr>
+                    <td colspan="2"><h5>User Information</h5></td>
+                </tr>
+                <tr>
+                    <td><div class="input-group mb-3">
+                        <span class="input-group-text">First Name:</span>
+                        <input id="firstName" name="firstName" type="text" class="form-control form-control-sm">                       
+                    </div></td>   
+                    <td><div class="input-group mb-3">
+                        <span class="input-group-text">Email Address:</span>
+                        <input id="email" name="email" type="email" class="form-control form-control-sm">
+                    </div></td>
+                 </tr>
+                  <tr>
+                    <td><div class="input-group mb-3">
+                        <span class="input-group-text">Last Name:</span>
+                        <input id="lastName" name="lastName" type="text" class="form-control form-control-sm">                       
+                    </div></td>   
+                    <td><div class="input-group mb-3">
+                        <span class="input-group-text">Passport No.</span>
+                        <input id="passportNumber" name="passportNumber" type="tel" class="form-control form-control-sm">
+                    </div></td>
+                 </tr>
+            </table>
+            <table class="packageSelectionTable">
+                <tr>
+                     <td colspan="2"><h5>Package Selection</h5></td>
+                </tr>
+                <tr>
+                     <td><div class="input-group mb-3">
+                        <span class="input-group-text">Meal Option:</span>
+                        <select class="form-select" aria-label="mealOption">
+                        <option selected>No Meal</option>
+                        <option value="standard">Standard</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="kosher">Kosher</option>
+                        </select>
+                    </div></td> 
+                    <td><div class="input-group mb-3">
+                        <span class="input-group-text">Include Extra Baggage:</span>
+                        <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" name="extraBaggage">
+                        </div>
+                    </div></td>
+                
+                </tr>
+
+            </table>
+        </form>
+    </body>
+
+</html>
