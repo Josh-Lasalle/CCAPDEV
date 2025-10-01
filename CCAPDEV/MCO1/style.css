@@ -42,8 +42,24 @@ body {
     padding: 50px 70px;
 }
 
-h1, h2, h3, h4, h5 {
+.p-r{
+    padding: 0px 70px;
+}
+
+.m-u{
+    margin-top: 90px;
+}
+
+.p{
+    padding: 10px;
+}
+
+h1, h2, h3, h4 {
   color: #E6EEF8;
+}
+
+h5{
+    color: black;
 }
 
 h6{
@@ -54,7 +70,12 @@ p{
     color: #AAB7C9;
 }
 
-hr{
+.hr-adjustment1{
+    color: white;
+    width: 500px;
+}
+
+.hr-adjustment2{
     color: white;
     width: 500px;
     margin: auto;
@@ -62,5 +83,9 @@ hr{
 
 .align-center{
    text-align: center;
+   margin-top: 60px;
+}
+
+.align-left{
    margin-top: 60px;
 }
