@@ -89,3 +89,15 @@ p{
 .align-left{
    margin-top: 60px;
 }
+
+.logo{
+    height: 50px;
+    width: 55px;
+}
+
+.customBorder{
+    border: rgb(54, 53, 53) solid 1px;
+    max-width: 1900px;
+    margin: auto;
+    margin-top: 30px;
+}
