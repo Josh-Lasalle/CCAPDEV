@@ -7,10 +7,8 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
 </head>
@@ -20,7 +18,7 @@
 <header>
   <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <img src ="images/logo.png" class = "logo" alt="logo">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -54,23 +52,28 @@
 <!-- Form Inputs -->
 <h3 class="align-center"> Search Flights </h3>
 <hr class="hr-adjustment2">
-<form id="myform" class="gap" action="flight.html" method="GET">
-    <table class="table table-bordered table-dark table-striped-columns">
-        <tr>
-            <td> <h6> Select an origin </h6></td>
-            <td> 
-                  <select id="origin" class="form-select form-select-sm" aria-label="Small select example" required>
-                    <option selected value=""> -- Choose Country -- </option>
-                    <option value="manila"> Manila (MNL) </option>
-                    <option value="beijing"> Beijing (BJS) </option>
-                    <option value="rome"> Rome (ROM) </option>
-                    <option value="san_francisco"> San Francisco (SFO) </option>
-                    <option value="seoul"> Seoul (SEL) </option>
-                  </select>
-              
-            </td>
-            <td> <h6> Select a destination </h6></td>
-            <td> 
+
+<div class="customBorder">
+<form id="searchForm" class="gap row g-3 needs-validation" novalidate>
+
+
+    <div class="col-md-5 position-relative">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Select an origin</span>
+        <select id="origin" class="form-select form-select-sm" aria-label="Small select example" required>
+            <option selected value=""> -- Choose Country -- </option>
+            <option value="manila"> Manila (MNL) </option>
+            <option value="beijing"> Beijing (BJS) </option>
+            <option value="rome"> Rome (ROM) </option>
+            <option value="san_francisco"> San Francisco (SFO) </option>
+            <option value="seoul"> Seoul (SEL) </option>
+          </select>
+      </div>   
+  </div>
+
+  <div class="col-md-5 position-relative">
+    <div class="input-group mb-3">    
+           <span class="input-group-text">Select a destination</span>
               <select id="destination" class="form-select form-select-sm" aria-label="Small select example" required>
                     <option selected value=""> -- Choose Country -- </option>
                     <option value="manila"> Manila (MNL) </option>
@@ -78,24 +81,39 @@
                     <option value="rome"> Rome (ROM) </option>
                     <option value="san_francisco"> San Francisco (SFO) </option>
                     <option value="seoul"> Seoul (SEL) </option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td> <h6> Select a departure date </h6></td>
-            <td> <input type="date" required/> </td>
-            <td> <h6> Select a returning date </h6></td>
-            <td> <input type="date" required/> </td>
-        </tr>
-        <tr>
-            <td> <h6> Passenger count </h6></td>
-            <td> <input type="number" min="1" max="9" required/> </td>
-            <td colspan="2"> <input type="submit" class="btn btn-secondary"  value="Search flights" /></td>
-        </tr>
-    </table>
-</form>
+              </select>
+    </div>   
+  </div>  
+      
+      <div class="col-md-4 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Select a departure date</span>
+          <input type="date" id="departureDate" class="form-control" required/> 
+        </div>
+      </div>
 
+      <div class="col-md-4 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Select a return date</span>
+          <input type="date" id ="returnDate" class="form-control" required/> 
+        </div>
+      </div>
 
-<script sc="script.js"></script>
+      <div class="col-md-2 position relative">
+        <div class="input-group mb-3">
+        <span class="input-group-text">Passenger Count</span>
+        <input type="number" min="1" max="9" id="passengerCount" class="form-control" required/>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <input type="submit" class="btn btn-secondary" />
+      </div>
+  </form>
+</div>
+<div id="formMessage" class="mt-4"></div>
+<div id="flightMessage"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
