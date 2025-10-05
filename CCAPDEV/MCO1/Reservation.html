@@ -46,141 +46,186 @@
         </nav>
     </header>
 
+    <div id="mainDiv">
         <h1>Reservation Form</h1>
             <form>
-              <table class="userInfoTable">
-                <tr>
-                    <td colspan="2"><h5>User Information</h5></td>
-                </tr>
-                <tr>
-                    <td><div class="input-group mb-3">
-                        <span class="input-group-text">First Name:</span>
-                        <input id="firstName" name="firstName" type="text" class="form-control form-control-sm">                       
-                    </div></td>   
-                    <td><div class="input-group mb-3">
-                        <span class="input-group-text">Email Address:</span>
-                        <input id="email" name="email" type="email" class="form-control form-control-sm">
-                    </div></td>
-                 </tr>
-                  <tr>
-                    <td><div class="input-group mb-3">
-                        <span class="input-group-text">Last Name:</span>
-                        <input id="lastName" name="lastName" type="text" class="form-control form-control-sm">                       
-                    </div></td>   
-                    <td><div class="input-group mb-3">
-                        <span class="input-group-text">Passport No.</span>
-                        <input id="passportNumber" name="passportNumber" type="tel" class="form-control form-control-sm">
-                    </div></td>
-                 </tr>
-            </table>
-            <table class="packageSelectionTable">
-                <tr>
-                     <td colspan="2"><h5>Package Selection</h5></td>
-                </tr>
-                <tr>
-                     <td><div class="input-group mb-3">
-                        <span class="input-group-text">Meal Option:</span>
-                        <select class="form-select" aria-label="mealOption">
-                        <option selected>No Meal</option>
-                        <option value="standard">Standard</option>
-                        <option value="vegetarian">Vegetarian</option>
-                        <option value="kosher">Kosher</option>
-                        </select>
-                    </div></td> 
-                    <td><div class="input-group mb-3">
-                        <span class="input-group-text">Include Extra Baggage:</span>
-                        <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" name="extraBaggage">
+                <table id="userInfoTable">
+                    <tr>
+                        <td colspan="2"><h5>User Information</h5></td>
+                    </tr>
+                    <tr>
+                        <td><div class="input-group mb-3">
+                            <span class="input-group-text">First Name:</span>
+                            <input id="firstName" name="firstName" type="text" class="form-control form-control-sm">                       
+                        </div></td>   
+                        <td><div class="input-group mb-3">
+                            <span class="input-group-text">Email Address:</span>
+                            <input id="email" name="email" type="email" class="form-control form-control-sm">
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="input-group mb-3">
+                            <span class="input-group-text">Last Name:</span>
+                            <input id="lastName" name="lastName" type="text" class="form-control form-control-sm">                       
+                        </div></td>   
+                        <td><div class="input-group mb-3">
+                            <span class="input-group-text">Passport No.</span>
+                            <input id="passportNumber" name="passportNumber" type="tel" class="form-control form-control-sm">
+                        </div></td>
+                    </tr>
+                </table>
+                <table id="packageSelectionTable">
+                    <tr>
+                        <td colspan="2"><h5>Package Selection</h5></td>
+                    </tr>
+                    <tr>
+                        <td><div class="input-group mb-3">
+                            <span class="input-group-text">Meal Option:</span>
+                            <select class="form-select" aria-label="mealOption">
+                            <option selected>No Meal</option>
+                            <option value="standard">Standard</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="kosher">Kosher</option>
+                            </select>
+                        </div></td> 
+                        <td><div class="input-group mb-3">
+                            <span class="input-group-text">Include Extra Baggage:</span>
+                            <div class="input-group-text">
+                            <input class="form-check-input mt-0" type="checkbox" name="extraBaggage">
+                            </div>
+                        </div></td>
+                    
+                    </tr>
+                    <tr>
+                        <td colspan="2"><h5>Seat Selection</h5></td>
+                    </tr>
+
+                </table>
+
+                    <div id="planeBox">
+                    <div class="row">
+                        <div class="col">A1</div>
+                        <div class="col">B1</div>
+                        <div class="col">C1</div>
+                        <div class="col">D1</div>
+                        <div class="col">E1</div>
+                        <div class="col">F1</div>
+                        <div class="col">G1</div>
+                        <div class="col">H1</div>
+                        <div class="col">I1</div>
+                        <div class="col">J1</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">A2</div>
+                        <div class="col">B2</div>
+                        <div class="col">C2</div>
+                        <div class="col">D2</div>
+                        <div class="col">E2</div>
+                        <div class="col">F2</div>
+                        <div class="col">G2</div>
+                        <div class="col">H2</div>
+                        <div class="col">I2</div>
+                        <div class="col">J2</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">A3</div>
+                        <div class="col">B3</div>
+                        <div class="col">C3</div>
+                        <div class="col">D3</div>
+                        <div class="col">E3</div>
+                        <div class="col">F3</div>
+                        <div class="col">G3</div>
+                        <div class="col">H3</div>
+                        <div class="col">I3</div>
+                        <div class="col">J3</div>
+                    </div>
+                        
+                <div id="aisleBox"><h4>BACK</h4><h4>AISLE</h4><H4>FRONT</H4></div>
+                        
+                    <div class="row">
+                        <div class="col">A4</div>
+                        <div class="col">B4</div>
+                        <div class="col">C4</div>
+                        <div class="col">D4</div>
+                        <div class="col">E4</div>
+                        <div class="col">F4</div>
+                        <div class="col">G4</div>
+                        <div class="col">H4</div>
+                        <div class="col">I4</div>
+                        <div class="col">J4</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">A5</div>
+                        <div class="col">B5</div>
+                        <div class="col">C5</div>
+                        <div class="col">D5</div>
+                        <div class="col">E5</div>
+                        <div class="col">F5</div>
+                        <div class="col">G5</div>
+                        <div class="col">H5</div>
+                        <div class="col">I5</div>
+                        <div class="col">J5</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">A6</div>
+                        <div class="col">B6</div>
+                        <div class="col">C6</div>
+                        <div class="col">D6</div>
+                        <div class="col">E6</div>
+                        <div class="col">F6</div>
+                        <div class="col">G6</div>
+                        <div class="col">H6</div>
+                        <div class="col">I6</div>
+                        <div class="col">J6</div>
+                    </div>                    
+                </div>
+                <div id="submitButtonReservationDiv">
+                    <input type="button" class="btn btn-secondary" value="Submit" data-bs-toggle="modal" data-bs-target="#confirmationModal"/>
+                </div>
+            </div>
+        
+
+            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="confirmationModalLabel">Reservation Summary</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div></td>
-                
-                </tr>
-                <tr>
-                     <td colspan="2"><h5>Seat Selection</h5></td>
-                </tr>
-
-            </table>
-
-                 <div class="planeBox">
-                <div class="seatGroup">
-                    <div class="seat">A1</div>
-                    <div class="seat">B1</div>
-                    <div class="seat">C1</div>
-                    <div class="seat">D1</div>
-                    <div class="seat">E1</div>
-                    <div class="seat">F1</div>
-                    <div class="seat">G1</div>
-                    <div class="seat">H1</div>
-                    <div class="seat">I1</div>
-                    <div class="seat">J1</div>
+                        <div class="modal-body">
+                    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-warning">Confirm</button>
+                        </div>
+                    </div>
                 </div>
-
-                 <div class="seatGroup">
-                    <div class="seat">A2</div>
-                    <div class="seat">B2</div>
-                    <div class="seat">C2</div>
-                    <div class="seat">D2</div>
-                    <div class="seat">E2</div>
-                    <div class="seat">F2</div>
-                    <div class="seat">G2</div>
-                    <div class="seat">H2</div>
-                    <div class="seat">I2</div>
-                    <div class="seat">J2</div>
-                </div>
-                 <div class="seatGroup">
-                    <div class="seat">A3</div>
-                    <div class="seat">B3</div>
-                    <div class="seat">C3</div>
-                    <div class="seat">D3</div>
-                    <div class="seat">E3</div>
-                    <div class="seat">F3</div>
-                    <div class="seat">G3</div>
-                    <div class="seat">H3</div>
-                    <div class="seat">I3</div>
-                    <div class="seat">J3</div>
-                </div>
-                     
-            <div class="aisleBox">AISLE</div>
-                     
-                <div class="seatGroup">
-                    <div class="seat">A4</div>
-                    <div class="seat">B4</div>
-                    <div class="seat">C4</div>
-                    <div class="seat">D4</div>
-                    <div class="seat">E4</div>
-                    <div class="seat">F4</div>
-                    <div class="seat">G4</div>
-                    <div class="seat">H4</div>
-                    <div class="seat">I4</div>
-                    <div class="seat">J4</div>
-                </div>
-                 <div class="seatGroup">
-                    <div class="seat">A5</div>
-                    <div class="seat">B5</div>
-                    <div class="seat">C5</div>
-                    <div class="seat">D5</div>
-                    <div class="seat">E5</div>
-                    <div class="seat">F5</div>
-                    <div class="seat">G5</div>
-                    <div class="seat">H5</div>
-                    <div class="seat">I5</div>
-                    <div class="seat">J5</div>
-                </div>
-                 <div class="seatGroup">
-                    <div class="seat">A6</div>
-                    <div class="seat">B6</div>
-                    <div class="seat">C6</div>
-                    <div class="seat">D6</div>
-                    <div class="seat">E6</div>
-                    <div class="seat">F6</div>
-                    <div class="seat">G6</div>
-                    <div class="seat">H6</div>
-                    <div class="seat">I6</div>
-                    <div class="seat">J6</div>
-                </div>
-            
             </div>
         </form>
+
+        <script>
+           let allSeats = document.querySelectorAll('.col');
+           let i=0;
+           let j=0;
+
+            while(i<allSeats.length){
+                let seat=allSeats[i];
+
+                seat.addEventListener('click', function(){
+                    while(j< allSeats.length){
+                        let otherSeats=allSeats[j];
+                        otherSeats.classList.remove('selected');
+                        j++;
+                    }
+                    this.classList.add('selected');
+                    j=0;
+                })
+                i++;
+            }
+        </script>
     </body>
 
 </html>
+
