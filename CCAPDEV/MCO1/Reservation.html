@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Reservation.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     </head>
 
@@ -48,7 +49,7 @@
 
     <div id="mainDiv">
         <h1>Reservation Form</h1>
-            <form>
+            <form id="reservationForm">
                 <table id="userInfoTable">
                     <tr>
                         <td colspan="2"><h5>User Information</h5></td>
@@ -181,10 +182,28 @@
                     </div>                    
                 </div>
                 <div id="submitButtonReservationDiv">
-                    <input type="button" class="btn btn-secondary" value="Submit" data-bs-toggle="modal" data-bs-target="#confirmationModal"/>
+                    <input type="button" id="submitButtonReservation" class="btn btn-secondary" value="Submit"/>
                 </div>
             </div>
         
+           <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="errorModalLabel">Reservation Summary</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div id="errorModal-body">
+                            <div id="errorModal-body">
+                                <p id="errorMessage"></p>
+                            </div>
+                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -204,28 +223,26 @@
                 </div>
             </div>
         </form>
-
+        <script src="Reservation.js"></script>
         <script>
-           let allSeats = document.querySelectorAll('.col');
-           let i=0;
-           let j=0;
+            let allSeats = document.querySelectorAll('.col');
+            let i=0;
+            let j=0;
+                while(i<allSeats.length){
+                    let seat=allSeats[i];
 
-            while(i<allSeats.length){
-                let seat=allSeats[i];
-
-                seat.addEventListener('click', function(){
-                    while(j< allSeats.length){
-                        let otherSeats=allSeats[j];
-                        otherSeats.classList.remove('selected');
-                        j++;
-                    }
-                    this.classList.add('selected');
-                    j=0;
-                })
-                i++;
-            }
+                    seat.addEventListener('click', function(){
+                        while(j< allSeats.length){
+                            let otherSeats=allSeats[j];
+                            otherSeats.classList.remove('selected');
+                                j++;
+                            }
+                                this.classList.add('selected');
+                                j=0;
+                            })
+                            i++;
+                        }
         </script>
     </body>
 
 </html>
-
