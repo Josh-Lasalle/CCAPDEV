@@ -6,8 +6,8 @@ body{
 #mainDiv{
    display: flex;
    flex-direction: column;
-   justify-content: center; /* centers horizontally */
-   align-items: center; /* centers verically */
+   justify-content: center;
+   align-items: center;
    background-color: #0E1524;
    width: 800px;
    margin:auto;
@@ -78,17 +78,17 @@ h5{
    border-radius: 8px;
    text-align: center;
    margin-top: 3px;
-   cursor: pointer; /* Add pointer cursor */
+   cursor: pointer;
    transition: background-color 0.2s;
   }
 
   .col:hover {
-    background-color: #8B5CF6; /* purple on hover */
+    background-color: #8B5CF6;
     color: white;
 }
 
 .col.selected {
-    background-color: #f8bd0a; /* blue when selected */
+    background-color: #f8bd0a;
 }
 
   #submitButtonReservationDiv{
@@ -96,6 +96,7 @@ h5{
    justify-content: center;
    margin-top: 5px;
   }
+
 
 
 
