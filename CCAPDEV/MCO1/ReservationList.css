@@ -1,0 +1,64 @@
+
+body{
+    color: rgb(10, 10, 10);
+    background-color: #031333;
+}
+
+.Reservation{
+    color :#8d4ef1;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+/* Main Card */
+.booking-card {
+  background: #e3e1e4;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/* Date Section */
+.date-box {
+  background: #015c5e;
+  color: #fff;
+  border-radius: 6px;
+  text-align: center;
+  padding: 3rem 0;
+  width: 70px;
+}
+
+.date-box h6 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.date-box p {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Info Section */
+.info {
+  flex: 1;
+}
+
+.info h5 {
+  margin-bottom: 0.25rem;
+}
+
+.flight {
+  border-top: 1px solid #e9ecef;
+  padding-top: 0.6rem;
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
