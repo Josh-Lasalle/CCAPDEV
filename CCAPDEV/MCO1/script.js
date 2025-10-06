@@ -57,7 +57,7 @@ if(!destinationCountry){
       showError('#destination');
     }
 
-if (originCountry == destinationCountry){
+if (originCountry == destinationCountry && (destinationCountry && originCountry == !empty)){
   errors.push('Origin and destination cannot be the same.');
   showError('#origin');
   showError('#destination');
@@ -74,7 +74,7 @@ if(!returnDate){
 }
 
 if(!passengerCount){
-    errors.push('Please fill in this field.');
+    errors.push('Please fill in the passenger count field.');
     showError('#passengerCount');
 }
 
@@ -114,6 +114,7 @@ let destinationText = countries[destinationCountry];
 function showError(selector) { // takes the id and changes the element into a red border color
     $(selector).addClass('is-invalid');
   }
+
   function clearErrors() { // removes inline border-color for any input and select within the form
     $('#searchForm input, #searchForm select').removeClass('is-invalid');
   }
