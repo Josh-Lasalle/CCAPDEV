@@ -45,6 +45,8 @@ const flightsDB = [
   { route: 'manila_seoul', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB112', price: 280.50 }
 ];
 
+
+
 //VALIDATION RULES
 if (!originCountry) {
       errors.push('Please select an origin country.');
@@ -84,33 +86,25 @@ let destinationText = countries[destinationCountry];
     if (errors.length > 0) { // checks if errors array has elements
       $('#errorMessage').html(`<div class="alert alert-danger "><b>Error</b> <br> ${errors.join('<br>')}</div>`);
     } else {
+      let i = 0;
       let flightMessage = `<div class="customBorder">
                             <div class="main_wrap"> 
                               <h4> ${originText} to 
                               ${destinationText}  |  
                               </h4><a href="search.html">Modify Search</a> 
-                            </div> 
-                          
-
-                            <table class="table table-striped-columns m-u">
-                            
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                          
-                              <tr>
-                                <td>BingBong Airline</td>
-                                <td>08:00 - 10:35</td>
-                                <td>CX912</td>
-                                <td>USD260.20</td>
-                              </tr>
-
-                            </table>
-                          </div>
-                          `;
+                            </div> `;
+      flightMessage += '<table class="table table-striped-columns m-u">';
+      for(i; i < flightsDB.length; i++){
+        const row = flightsDB[i];
+        flightMessage += '<tr>'
+                      + '<td>' + row.airline + '</td>'
+                      + '<td>' + row.depart + '</td>'
+                      + '<td>' + row.arrive + '</td>'
+                      + '<td>' + row.flightNo + '</td>'
+                      + '<td>' + row.price + '</td>'
+                      + '</tr>';
+      }
+      flightMessage += '</table></div>';                 
       $('#flightMessage').html(flightMessage);
     }
   });
@@ -119,10 +113,7 @@ let destinationText = countries[destinationCountry];
 function showError(selector) { // takes the id and changes the element into a red border color
     $(selector).addClass('is-invalid');
   }
-
   function clearErrors() { // removes inline border-color for any input and select within the form
     $('#searchForm input, #searchForm select').removeClass('is-invalid');
   }
-
-
 });
