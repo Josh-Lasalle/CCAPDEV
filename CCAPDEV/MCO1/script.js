@@ -23,25 +23,25 @@ const countries ={
 };
 
 const flightsDB = [
-  { route: 'manila_beijing', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB100', price: 303.20 },
-  { route: 'manila_beijing', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB101', price: 260.20 },
-  { route: 'manila_beijing', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB102', price: 280.50 },
+  { route: 'manila_beijing', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB100', price: 17615.77 },
+  { route: 'manila_beijing', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB101', price: 15119.44 },
+  { route: 'manila_beijing', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB102', price: 16299.01 },
 
-  { route: 'beijing_manila', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB200', price: 303.20 },
-  { route: 'beijing_manila', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB201', price: 260.20 },
-  { route: 'beijing_manila', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB202', price: 280.50 },
+  { route: 'beijing_manila', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB200', price: 17615.77 },
+  { route: 'beijing_manila', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB201', price: 15119.44 },
+  { route: 'beijing_manila', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB202', price: 16299.01 },
 
-  { route: 'rome_francisco', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB300', price: 303.20 },
-  { route: 'rome_francisco', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB301', price: 260.20 },
-  { route: 'rome_francisco', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB302', price: 280.50 },
+  { route: 'rome_francisco', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB300', price: 17615.77 },
+  { route: 'rome_francisco', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB301', price: 15119.44 },
+  { route: 'rome_francisco', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB302', price: 16299.01 },
 
-  { route: 'francisco_rome', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB400', price: 303.20 },
-  { route: 'francisco_rome', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB401', price: 260.20 },
-  { route: 'francisco_rome', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB402', price: 280.50 },
+  { route: 'francisco_rome', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB400', price: 17615.77 },
+  { route: 'francisco_rome', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB401', price: 15119.44 },
+  { route: 'francisco_rome', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB402', price: 16299.01 },
 
-  { route: 'manila_seoul', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB110', price: 303.20 },
-  { route: 'manila_seoul', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB111', price: 260.20 },
-  { route: 'manila_seoul', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB112', price: 280.50 }
+  { route: 'manila_seoul', airline: 'BingBong Airline', depart: '05:30', arrive: '08:05', flightNo: 'BB110', price: 17615.77 },
+  { route: 'manila_seoul', airline: 'BingBong Airline', depart: '08:00', arrive: '10:35', flightNo: 'BB111', price: 15119.44 },
+  { route: 'manila_seoul', airline: 'BingBong Airline', depart: '14:00', arrive: '16:45', flightNo: 'BB112', price: 16299.01 }
 ];
 
 
