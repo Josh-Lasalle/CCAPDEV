@@ -73,6 +73,11 @@ if(!returnDate){
     showError('#returnDate');
 }
 
+if(departureDate >= returnDate){
+    errors.push('Invalid departure date.');
+    showError('#departureDate');
+}
+
 if(!passengerCount){
     errors.push('Please fill in the passenger count field.');
     showError('#passengerCount');
