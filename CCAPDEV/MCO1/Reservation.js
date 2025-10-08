@@ -1,6 +1,13 @@
+let numPassengers = parseInt(localStorage.getItem("numPassengers")) || 3; 
+let currentPassenger = 1;
+let passengers = [];
+
 const nameRegex=/^[A-Za-z]{2,}$/;
 const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const passPortNumberRegex=/^[A-Z]\d{7}$/i;
+
+
+$("#formTitle").text(`Passenger ${currentPassenger} of ${numPassengers}`);
 
 $('#submitButtonReservation').on('click', function(event) {
 
@@ -56,7 +63,26 @@ $('#submitButtonReservation').on('click', function(event) {
         }
         let totalPrice=planePrice + mealPrice + baggagePrice;
 
-        let summary=`<p>Name: ${getFirstName} ${getLastName}</p>
+        passengers.push({
+        firstName: getFirstName,
+        lastName: getLastName,
+        email: getEmail,
+        passport: getPassportNumber,
+        meal: getMealOption,
+        baggage: isExtraBaggage,
+        seat: seatname,
+        total: totalPrice
+        });
+
+        getSelectedSeat.classList.remove('selected');
+        getSelectedSeat.classList.add('taken');
+
+        $("#firstName, #lastName, #email, #passportNumber").val("");
+        $("#mealOption").val("No Meal");
+        $("#extraBaggage").prop("checked", false);
+
+        let summary=`<h6>Passenger ${currentPassenger} Summary</h6>
+                    <p>Name: ${getFirstName} ${getLastName}</p>
                     <p>Email:</strong> ${getEmail}</p>
                     <p>Passport No.: ${getPassportNumber}</p>
                     <p>Meal Option: ${getMealOption}</p>
@@ -73,9 +99,33 @@ $('#submitButtonReservation').on('click', function(event) {
 
                 $(".confirmationModal-body").html(summary);
                 $("#confirmationModal").modal('show');
+
         }
     }
 );
+
+$("#confirmationModal").on('hidden.bs.modal', function () {
+            
+    $("#firstName, #lastName, #email, #passportNumber").val("");
+    $("#mealOption").val("No Meal");
+    $("#extraBaggage").prop("checked", false);
+
+    currentPassenger++;
+
+    if (currentPassenger < numPassengers){
+        $("#formTitle").text(`Passenger ${currentPassenger} of ${numPassengers}`);
+    } 
+
+    else if (currentPassenger === numPassengers) {
+        $(".btn-warning").text("Complete Booking");
+        $("#formTitle").text(`Passenger ${currentPassenger} of ${numPassengers}`);
+    } 
+    else{
+        ("#formTitle").text("All passengers have been entered!");
+        $("#submitButtonReservation").prop("disabled", true);
+        $(".btn-warning").text("Confirm");
+    }
+    });
 
 function showModal(message, title="Error") {
   $("#errorModalLabel").text(title);
