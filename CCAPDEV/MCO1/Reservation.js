@@ -8,33 +8,77 @@ $('#submitButtonReservation').on('click', function(event) {
     let getLastName=$("#lastName").val();
     let getEmail=$("#email").val();
     let getPassportNumber=$("#passportNumber").val();
+    let getMealOption=$("#mealOption").val();
+    let getExtraBaggage=$("#extraBaggage").is(":checked");
+    let getSelectedSeat=document.querySelector('.col.selected');
     let isValid=true;
 
     if (!nameRegex.test(getFirstName)){
-        showModal("Error: Please input a valid first name.");
+        showModal("Please input a valid first name.");
         isValid=false;
         }
     if (!nameRegex.test(getLastName)){
-        showModal("Error: Please input a valid last name.");
+        showModal("Please input a valid last name.");
         isValid=false
         }
     if (!emailRegex.test(getEmail)){
-        showModal("Error: Please input a valid email address.");
+        showModal("Please input a valid email address.");
         isValid=false
         }
     if (!passPortNumberRegex.test(getPassportNumber)){
-        showModal("Error: Please input a valid passport number.");
+        showModal("Please input a valid passport number.");
         isValid=false
         }
+    if (!getSelectedSeat) {
+        showModal("Please select a seat.");
+        isValid=false;
+    }
 
     if  (isValid==true){
-         $("#confirmationModal").modal('show');
+
+        let mealPrice=0;
+        let baggagePrice=0;
+        let isExtraBaggage="Yes";
+        let planePrice=20000;
+        let seatname=getSelectedSeat.textContent.trim();
+        if(getMealOption=="No Meal"){
+            mealPrice=0;
+        }
+        else{
+            mealPrice=300;
+        }
+        if(getExtraBaggage==true){
+            baggagePrice=250;
+        }
+        else{
+            isExtraBaggage="No";
+            baggagePrice=0;
+        }
+        let totalPrice=planePrice + mealPrice + baggagePrice;
+
+        let summary=`<p>Name: ${getFirstName} ${getLastName}</p>
+                    <p>Email:</strong> ${getEmail}</p>
+                    <p>Passport No.: ${getPassportNumber}</p>
+                    <p>Meal Option: ${getMealOption}</p>
+                    <p>Extra Baggage: ${isExtraBaggage}</p>
+                    <p>Selected Seat: ${seatname}</p>
+                    <hr>
+                    <h6>Price Breakdown:</h6>
+                    <p>Base Fare: ₱${planePrice}</p>
+                    <p>Meal Charge: ₱${mealPrice}</p>
+                    <p>Extra Baggage: ₱${baggagePrice}</p>
+                    <hr>
+                    <p><strong>Total Price:</strong> ₱${totalPrice}</p>
+                    `;
+
+                $(".confirmationModal-body").html(summary);
+                $("#confirmationModal").modal('show');
         }
     }
 );
 
-function showModal(message, title="Message") {
+function showModal(message, title="Error") {
   $("#errorModalLabel").text(title);
-  $("#errorModal-body").text(message);
+  $(".errorModal-body").text(message);
   $("#errorModal").modal("show");
 }
