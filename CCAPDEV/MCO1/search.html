@@ -86,14 +86,26 @@
     </div>   
   </div>  
       
-      <div class="col-md-4 position relative">
+      <div class="col-md-3 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Select a trip</span>
+          <select id="tripType" class="form-select form-select-sm" aria-label="Small select example" required>
+                    <option selected value=""> -- Choose a trip -- </option>
+                    <option value="round"> Round Trip </option>
+                    <option value="oneWay"> One Way </option>
+              </select> 
+        </div>
+      </div>
+
+
+      <div class="col-md-3 position relative">
         <div class="input-group mb-3">
           <span class="input-group-text">Select a departure date</span>
           <input type="date" id="departureDate" class="form-control" min="2025-10-05" step="1" max="2025-10-11" required/> <!--YYYY/MM/DD -->
         </div>
       </div>
 
-      <div class="col-md-4 position relative">
+      <div class="col-md-3 position relative">
         <div class="input-group mb-3">
           <span class="input-group-text">Select a return date</span>
           <input type="date" id ="returnDate" class="form-control" min="2025-10-06" step="1" max="2025-10-12" required/> 
