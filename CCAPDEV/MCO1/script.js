@@ -1,5 +1,18 @@
 $(document).ready(function () {
 
+$('#tripType').on('change', function () {
+const $returnGroup = $('#returnDate').closest('.col-md-3');
+let tripType = $('#tripType').val();
+
+if(tripType != 'oneWay'){
+ $returnGroup.removeClass('d-none');
+}
+
+if (tripType == 'oneWay'){
+  $returnGroup.addClass('d-none');
+}
+});
+
 //SEARCH 
 $('#searchForm').on('submit', function (e) {
     e.preventDefault();
@@ -13,6 +26,7 @@ const destinationCountry = $('#destination').val();
 const departureDate = $('#departureDate').val();
 const returnDate = $('#returnDate').val();
 const passengerCount = parseInt($('#passengerCount').val());
+let tripType = $('#tripType').val();
 
 const countries ={
   manila: 'Manila',
@@ -57,24 +71,8 @@ if(!destinationCountry){
       showError('#destination');
     }
 
-if (originCountry == destinationCountry && (destinationCountry && originCountry == !empty)){
-  errors.push('Origin and destination cannot be the same.');
-  showError('#origin');
-  showError('#destination');
-}
-
 if(!departureDate){
     errors.push('Please select a departure date.');
-    showError('#departureDate');
-}
-
-if(!returnDate){
-    errors.push('Please select a return date.');
-    showError('#returnDate');
-}
-
-if(departureDate >= returnDate){
-    errors.push('Invalid departure date.');
     showError('#departureDate');
 }
 
@@ -82,6 +80,32 @@ if(!passengerCount){
     errors.push('Please fill in the passenger count field.');
     showError('#passengerCount');
 }
+
+if (originCountry == destinationCountry && (destinationCountry && originCountry == !empty)){
+    errors.push('Origin and destination cannot be the same.');
+    showError('#origin');
+    showError('#destination');
+}
+
+if(!tripType){
+  errors.push('Please choose a trip type.');
+    showError('#tripType');
+}
+
+if(tripType != 'oneWay'){
+
+  if(!returnDate){
+    errors.push('Please select a return date.');
+    showError('#returnDate');
+  }
+
+  else if(departureDate >= returnDate){
+      errors.push('Invalid Date Selected.');
+      showError('#departureDate');
+      showError('#returnDate');
+  }
+}
+
 
 let originText = countries[originCountry];
 let destinationText = countries[destinationCountry];
@@ -91,12 +115,26 @@ let destinationText = countries[destinationCountry];
       $('#errorMessage').html(`<div class="alert alert-danger "><b>Error</b> <br> ${errors.join('<br>')}</div>`);
     } else {
       let i = 0;
-      let flightMessage = `<div class="customBorder">
-                            <div class="main_wrap"> 
-                              <h4> ${originText} to 
-                              ${destinationText}  |  
-                              </h4><a href="search.html">Modify Search</a> 
-                            </div> `;
+      let flightMessage = '<ul class="nav nav-tabs" role="tablist">';
+
+     flightMessage += `<li class ="nav-item" role="presentation">
+      <button class="nav-link active" id="tab-out" data-bs-toggle="tab" type="button" role="tab">
+        ${originText} - ${destinationText}
+      </button>
+      </li>
+      `;
+      
+      if(tripType == 'round'){
+        flightMessage += `<li class ="nav-item" role="presentation">
+        <button class="nav-link" id="tab-return" data-bs-toggle="tab" type="button" role="tab">
+         ${destinationText} - ${originText}
+        </button>
+        </li>
+        `
+      }
+
+      flightMessage+= '</ul>';
+
       flightMessage += '<table class="table table-striped-columns m-u">';
       for(i; i < flightsDB.length; i++){
         const row = flightsDB[i];
@@ -116,11 +154,12 @@ let destinationText = countries[destinationCountry];
   });
 
 //ERROR
-function showError(selector) { // takes the id and changes the element into a red border color
+function showError(selector) { 
     $(selector).addClass('is-invalid');
   }
 
-  function clearErrors() { // removes inline border-color for any input and select within the form
+  function clearErrors() { 
     $('#searchForm input, #searchForm select').removeClass('is-invalid');
+    $('#tripType input, #tripType select').removeClass('is-invalid');
   }
 });
