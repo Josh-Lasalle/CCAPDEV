@@ -160,6 +160,5 @@ function showError(selector) {
 
   function clearErrors() { 
     $('#searchForm input, #searchForm select').removeClass('is-invalid');
-    $('#tripType input, #tripType select').removeClass('is-invalid');
   }
 });
