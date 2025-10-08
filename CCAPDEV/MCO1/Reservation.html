@@ -32,7 +32,7 @@
                     <a class="nav-link" href="search.html">Search Flights</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" href="reservation.html">Book Flight</a>
+                    <a class="nav-link active" href="reservationSearch.html">Book Flight</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="ReservationList.html"> My Reservations </a>
@@ -216,7 +216,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-warning">Confirm</button>
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -231,13 +231,20 @@
                     let seat=allSeats[i];
 
                     seat.addEventListener('click', function(){
+
+                        if (seat.classList.contains('taken')) return;
+
                         while(j< allSeats.length){
                             let otherSeats=allSeats[j];
-                            otherSeats.classList.remove('selected');
+                           if (!otherSeats.classList.contains('taken')){
+                                otherSeats.classList.remove('selected');
+                                }
                                 j++;
                             }
-                                this.classList.add('selected');
                                 j=0;
+
+                                seat.classList.add('selected');
+                                selectedSeat = seat.textContent.trim();
                             })
                             i++;
                         }
