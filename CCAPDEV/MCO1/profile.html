@@ -49,15 +49,80 @@
 </header>
 
 <!-- Content -->
+<div class="container mt-5 text-white">
+    <h2 class="mb-4">My Profile</h2>
+    <form id="Form">
+        <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control text-dark" id="firstName" placeholder="Manny">
+        </div>
 
+        <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control text-dark" id="lastName" placeholder="Pacquiao">
+        </div>
+        </div>
 
+        <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control text-dark" id="email" placeholder="Manny_pacquiao@gmail.com">
+        </div>
+
+        <div class="col-md-6">
+            <label for="passport" class="form-label">Passport Number</label>
+            <input type="text" class="form-control text-dark" id="passport" placeholder="P1234567A">
+        </div>
+        </div>
+
+        <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control text-dark" id="username" placeholder="Manny_Pacman67">
+        </div>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control text-dark" id="password" placeholder="••••••••">
+        </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+        <button type="reset" class="btn btn-secondary me-2">Cancel</button>
+        <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+        <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#delete">Delete Account</button>
+        </div>
+
+        <div id="formMessage" class="mt-4"></div>
+
+        <!-- Delete -->
+            <div class="modal fade" id="delete">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this account?
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="home.html" class="btn btn-danger">Delete</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>
 
 <footer>
-<div class="main_wrap justify-content-center mb-4">
+<div class="main_wrap justify-content-center m-u p fixed-bottom">
 <p class="p-r"> @BingBong Airlines 2025 </p>
 </div>
 </footer>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="profile.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
