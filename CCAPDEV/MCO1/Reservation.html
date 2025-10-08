@@ -82,17 +82,17 @@
                     <tr>
                         <td><div class="input-group mb-3">
                             <span class="input-group-text">Meal Option:</span>
-                            <select class="form-select" aria-label="mealOption">
-                            <option selected>No Meal</option>
-                            <option value="standard">Standard</option>
-                            <option value="vegetarian">Vegetarian</option>
-                            <option value="kosher">Kosher</option>
+                            <select class="form-select" aria-label="mealOption" id="mealOption">
+                            <option value="No Meal" selected>No Meal</option>
+                            <option value="Standard">Standard</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Kosher">Kosher</option>
                             </select>
                         </div></td> 
                         <td><div class="input-group mb-3">
                             <span class="input-group-text">Include Extra Baggage:</span>
                             <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" name="extraBaggage">
+                            <input class="form-check-input mt-0" type="checkbox" name="extraBaggage" value="Yes" id="extraBaggage">
                             </div>
                         </div></td>
                     
@@ -190,11 +190,11 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="errorModalLabel">Reservation Summary</h1>
+                            <h2 class="modal-title fs-5" id="errorModalLabel">Error: Invalid Input</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div id="errorModal-body">
-                            <div id="errorModal-body">
+                        <div class="errorModal-body">
+                            <div class="errorModal-body">
                                 <p id="errorMessage"></p>
                             </div>
                     </div>
@@ -209,11 +209,10 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="confirmationModalLabel">Reservation Summary</h1>
+                            <h2 class="modal-title fs-5" id="confirmationModalLabel">Reservation Summary</h2>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                    
+                        <div class="confirmationModal-body">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
