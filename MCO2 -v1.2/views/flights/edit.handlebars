@@ -1,0 +1,74 @@
+<form action="/flights/edit/{{flight._id}}" id="registerForm" method="post">
+<h1 class="dispaly-6 fw-bold text-center my-4">Edit Flights</h1>
+<div class="form-floating mb-3">
+    <input id="flightNum" name="flightNum" class="form-control" placeholder="please provide a flight number" required value="{{flight.flightNum}}">
+    <label>Flight Number</label>
+    {{#if errors.flightNum}}
+        <div class="text-danger">{{errors.flightNum}}</div>
+    {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="airline" name="airline" class="form-control" placeholder="please provide an airline" required value="{{flight.airline}}">
+    <label>Airline</label>
+    {{#if errors.airline}}
+        <div class="text-danger">{{errors.airline}}</div>
+    {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="aircraftType" name="aircraftType" class="form-control" placeholder="please provide an aircraft type" required value="{{flight.aircraftType}}">
+    <label>Aircraft Type</label>
+        {{#if errors.aircraftType}}
+            <div class="text-danger">{{errors.aircraftType}}</div>
+        {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="origin" name="origin" class="form-control" placeholder="please provide an origin" required value="{{flight.origin}}">
+    <label>Origin</label>
+        {{#if errors.aircraftType}}
+            <div class="text-danger">{{errors.origin}}</div>
+        {{/if}}
+</div>
+<div class="form-floating mb-3">
+    <input id="destination" name="destination" class="form-control" placeholder="please provide a destination" required value="{{flight.destination}}">
+    <label>Destination</label>
+        {{#if errors.destination}}
+            <div class="text-danger">{{errors.destination}}</div>
+        {{/if}}
+</div>
+<div class="form-floating mb-3">
+    <input id="departure" name="departure" class="form-control" placeholder="please provide a departure" required value="{{flight.departure}}">
+    <label>Departure</label>
+        {{#if errors.aircraftType}}
+            <div class="text-danger">{{errors.departure}}</div>
+        {{/if}}
+</div>
+<div class="form-floating mb-3">
+    <input id="arrival" name="arrival" class="form-control" placeholder="please provide an arrival" required value="{{flight.arrival}}">
+    <label>Arrival</label>
+        {{#if errors.arrival}}
+            <div class="text-danger">{{errors.arrival}}</div>
+        {{/if}}
+</div>
+<div class="form-floating mb-3">
+    <input id="seatCap" name="seatCap" class="form-control" placeholder="please provide a seat capacity" required value="{{flight.seatCap}}">
+    <label>Seat Capacity</label>
+        {{#if errors.seatCap}}
+            <div class="text-danger">{{errors.seatCap}}</div>
+        {{/if}}
+</div>
+<div class="form-floating mb-3">
+    <input id="price" name="price" class="form-control" placeholder="please provide a price" required value="{{flight.price}}">
+    <label>Price</label>
+        {{#if errors.price}}
+            <div class="text-danger">{{errors.price}}</div>
+        {{/if}}
+</div>
+
+
+  <div class=" float-end">
+        <button type="submit" id="submitRegister" class="btn btn-success">Submit</button>
+      </div>
+</form>

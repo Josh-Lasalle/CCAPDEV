@@ -1,0 +1,32 @@
+<form action="/users/edit/{{user._id}}" id="registerForm" method="post">
+ <h1 class="dispaly-6 fw-bold text-center my-4">Edit User</h1>
+  <div class="form-floating mb-3">
+    <input id="username" name="username" class="form-control" placeholder="please provide a username" required value="{{user.username}}">
+    <label>Username</label>
+    {{#if errors.username}}
+        <div class="text-danger">{{errors.username}}</div>
+    {{/if}}
+  </div>
+
+  <div class="form-floating mb-3">
+    <input id="password" name="password" class="form-control" placeholder="please provide a password" required>
+    <label>Password</label>
+    {{#if errors.password}}
+        <div class="text-danger">{{errors.password}}</div>
+    {{/if}}
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <div class="form-floating mb-3">
+        <input id="email" type="email" name="email" class="form-control" placeholder="please provide a valid email address" required value="{{user.email}}">
+        <label>Email</label>
+        {{#if errors.email}}
+            <div class="text-danger">{{errors.email}}</div>
+        {{/if}}
+      </div>
+    </div>
+  <div class=" float-end">
+        <button type="submit" id="submitRegister" class="btn btn-success">Submit</button>
+      </div>
+</form>

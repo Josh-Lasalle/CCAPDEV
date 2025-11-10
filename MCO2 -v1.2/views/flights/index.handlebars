@@ -1,0 +1,45 @@
+<h1 class="dispaly-6 fw-bold text-center my-4">Flight Management</h1>
+<table class="table table-hover table-borderless">
+  <thead class="table-light">
+    <tr>
+      <th>FlightNum</th>
+      <th>Airline</th>
+      <th>Aircraft Type</th>
+      <th>Origin</th>
+      <th>Destination</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th>Seat Capacity</th>
+      <th>Price</th>
+      <th>
+        <div class="float-end">
+          <a href="/flights/add" class="btn btn-sm btn-success">+ Add</a>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each flight}}
+    <tr>
+      <td>{{this.flightNum}}</td>
+      <td>{{this.airline}}</td>
+      <td>{{this.aircraftType}}</td>
+      <td>{{this.origin}}</td>
+      <td>{{this.destination}}</td>
+      <td>{{this.departure}}</td>
+      <td>{{this.arrival}}</td>
+      <td>{{this.seatCap}}</td>
+      <td>{{this.price}}</td>
+      <td>
+        <form action="/flights/delete/{{this._id}}" method="post">
+          <a href="/flights/edit/{{this._id}}" class="btn btn-sm btn-link">Edit</a>
+          <button type="submit" class="btn btn-sm btn-outline-danger">
+            DEL
+          </button>
+        </form>
+      </td>
+    </tr>
+
+    {{/each}}
+  </tbody>
+</table>

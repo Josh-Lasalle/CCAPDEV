@@ -1,0 +1,77 @@
+<!-- Form Inputs -->
+<h3 class="align-center"> Search Flights </h3>
+<hr class="hr-adjustment2">
+
+<div class="customBorder">
+<div id="errorMessage"></div>
+<form id="searchForm" class="gap row g-3 needs-validation" novalidate>
+
+
+    <div class="col-md-5 position-relative">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Select an origin</span>
+        <select id="origin" class="form-select form-select-sm" aria-label="Small select example" required>
+            <option selected value=""> -- Choose Country -- </option>
+            <option value="manila"> Manila (MNL) </option>
+            <option value="beijing"> Beijing (BJS) </option>
+            <option value="rome"> Rome (ROM) </option>
+            <option value="san_francisco"> San Francisco (SFO) </option>
+            <option value="seoul"> Seoul (SEL) </option>
+          </select>
+      </div>   
+  </div>
+
+  <div class="col-md-5 position-relative">
+    <div class="input-group mb-3">    
+           <span class="input-group-text">Select a destination</span>
+              <select id="destination" class="form-select form-select-sm" aria-label="Small select example" required>
+                    <option selected value=""> -- Choose Country -- </option>
+                    <option value="manila"> Manila (MNL) </option>
+                    <option value="beijing"> Beijing (BJS) </option>
+                    <option value="rome"> Rome (ROM) </option>
+                    <option value="san_francisco"> San Francisco (SFO) </option>
+                    <option value="seoul"> Seoul (SEL) </option>
+              </select>
+    </div>   
+  </div>  
+      
+      <div class="col-md-3 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Select a trip</span>
+          <select id="tripType" class="form-select form-select-sm" aria-label="Small select example" required>
+                    <option selected value=""> -- Choose a trip -- </option>
+                    <option value="round"> Round Trip </option>
+                    <option value="oneWay"> One Way </option>
+              </select> 
+        </div>
+      </div>
+
+
+      <div class="col-md-3 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Select a departure date</span>
+          <input type="date" id="departureDate" class="form-control" min="2025-10-05" step="1" max="2025-10-11" required/> <!--YYYY/MM/DD -->
+        </div>
+      </div>
+
+      <div class="col-md-3 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text">Select a return date</span>
+          <input type="date" id ="returnDate" class="form-control" min="2025-10-06" step="1" max="2025-10-12" required/> 
+        </div>
+      </div>
+
+      <div class="col-md-2 position relative">
+        <div class="input-group mb-3">
+        <span class="input-group-text">Passenger Count</span>
+        <input type="number" min="1" max="9" id="passengerCount" class="form-control" required/>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <input type="submit" class="btn btn-secondary" />
+      </div>
+  </form>
+</div>
+<div id="flightMessage"></div>
+<script src="SearchFlightscript.js"></script>
