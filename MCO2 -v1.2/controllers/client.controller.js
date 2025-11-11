@@ -17,6 +17,13 @@ router.get('/search', (req, res) => {
   });
 });
 
+// Client Profile 
+router.get('/profile', (req, res) => {
+  res.render('client/ClientProfile', {
+    title: 'Client Profile Page',
+  });
+});
+
 // Search Form
 router.post('/searchFlight', async (req, res) => {
   const { origin, destination, departure, passengerCount } = req.body;
@@ -53,6 +60,7 @@ router.post('/searchFlight', async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 
