@@ -172,9 +172,14 @@ router.post('/login', async (req, res) => {
         user: { username }
       });
     }
-
-    res.redirect('/users');
     
+    //res.redirect('/users');
+    //REDIRECT EDIT HERE---
+    if (user.role === 'Admin') {
+      res.redirect('/admin/home');
+    } else {
+      res.redirect(`/client/home/${user.username}`);
+    }
   } catch (err) {
     console.error('Login error:', err);
     res.render('users/login', {
@@ -186,3 +191,4 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
