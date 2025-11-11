@@ -53,21 +53,37 @@
 </div>
 
 <div class="form-floating mb-3">
-    <input id="departure" name="departure" type="datetime-local" class="form-control" placeholder="please provide a departure" required value="{{flight.departure}}" required>
-    <label>Departure</label>
-    {{#if errors.departure}}
-        <div class="text-danger">{{errors.departure}}</div>
+    <input id="departureDate" name="departureDate" type="date" class="form-control" placeholder="Select a departure date" value="{{flight.departureDate}}" required>
+    <label>Departure Date</label>
+    {{#if errors.departureDate}}
+        <div class="text-danger">{{errors.departureDate}}</div>
     {{/if}}
-</div>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input id="departureTime" name="departureTime" type="time" class="form-control" placeholder="Select a departure time" required value="{{flight.departureTime}}" required>
+    <label>Departure Time</label>
+    {{#if errors.departureTime}}
+        <div class="text-danger">{{errors.departureTime}}</div>
+    {{/if}}
+  </div>
 
 
-<div class="form-floating mb-3">
-    <input id="arrival" name="arrival" type="datetime-local" class="form-control" placeholder="please provide an arrival" required value="{{flight.arrival}}" required>
-    <label>arrival</label>
-    {{#if errors.arrival}}
-        <div class="text-danger">{{errors.arrival}}</div>
+  <div class="form-floating mb-3">
+    <input id="arrivalDate" name="arrivalDate" type="date" class="form-control" placeholder="Select an arrival date" required value="{{flight.arrivalDate}}" required>
+    <label>Arrival Date</label>
+    {{#if errors.arrivalDate}}
+        <div class="text-danger">{{errors.arrivalDate}}</div>
     {{/if}}
-</div>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input id="arrivalTime" name="arrivalTime" type="time" class="form-control" placeholder="Select an arrival time" required value="{{flight.arrivalTime}}" required>
+    <label>Arrival Time</label>
+    {{#if errors.arrivalTime}}
+        <div class="text-danger">{{errors.arrivalTime}}</div>
+    {{/if}}
+  </div>
 
 <div class="form-floating mb-3">
     <input id="seatCap" name="seatCap" class="form-control" type="number" placeholder="please provide a seat capacity" required value="{{flight.seatCap}}">
