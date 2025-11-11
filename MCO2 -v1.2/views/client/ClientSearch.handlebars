@@ -4,13 +4,13 @@
 
 <div class="customBorder">
 <div id="errorMessage"></div>
-<form id="searchForm" class="gap row g-3 needs-validation" novalidate>
+<form id="searchForm" class="row g-3 needs-validation" action="/client/searchFlight" method="POST" novalidate>
 
 
     <div class="col-md-5 position-relative">
       <div class="input-group mb-3">
         <span class="input-group-text">Select an origin</span>
-        <select id="origin" class="form-select form-select-sm" aria-label="Small select example" required>
+        <select id="origin" name="origin" class="form-select form-select-sm" required>
             <option selected value=""> -- Choose Country -- </option>
             <option value="manila"> Manila (MNL) </option>
             <option value="beijing"> Beijing (BJS) </option>
@@ -24,7 +24,7 @@
   <div class="col-md-5 position-relative">
     <div class="input-group mb-3">    
            <span class="input-group-text">Select a destination</span>
-              <select id="destination" class="form-select form-select-sm" aria-label="Small select example" required>
+              <select id="destination" name="destination" class="form-select form-select-sm" required>
                     <option selected value=""> -- Choose Country -- </option>
                     <option value="manila"> Manila (MNL) </option>
                     <option value="beijing"> Beijing (BJS) </option>
@@ -34,37 +34,19 @@
               </select>
     </div>   
   </div>  
-      
-      <div class="col-md-3 position relative">
-        <div class="input-group mb-3">
-          <span class="input-group-text">Select a trip</span>
-          <select id="tripType" class="form-select form-select-sm" aria-label="Small select example" required>
-                    <option selected value=""> -- Choose a trip -- </option>
-                    <option value="round"> Round Trip </option>
-                    <option value="oneWay"> One Way </option>
-              </select> 
-        </div>
-      </div>
-
-
+    
       <div class="col-md-3 position relative">
         <div class="input-group mb-3">
           <span class="input-group-text">Select a departure date</span>
-          <input type="date" id="departureDate" class="form-control" min="2025-10-05" step="1" max="2025-10-11" required/> <!--YYYY/MM/DD -->
+          <input type="date" name="departure" id="departureDate" class="form-control" required/> <!--YYYY/MM/DD -->
         </div>
       </div>
 
-      <div class="col-md-3 position relative">
-        <div class="input-group mb-3">
-          <span class="input-group-text">Select a return date</span>
-          <input type="date" id ="returnDate" class="form-control" min="2025-10-06" step="1" max="2025-10-12" required/> 
-        </div>
-      </div>
-
+      
       <div class="col-md-2 position relative">
         <div class="input-group mb-3">
         <span class="input-group-text">Passenger Count</span>
-        <input type="number" min="1" max="9" id="passengerCount" class="form-control" required/>
+        <input type="number" min="1" max="9" id="passengerCount" name="passengerCount" class="form-control" required/>
         </div>
       </div>
 
@@ -74,4 +56,42 @@
   </form>
 </div>
 <div id="flightMessage"></div>
+
+<!-- Existing Form Above -->
+
+<div id="flightResults" class="mt-4">
+  {{#if errorMessage}}
+    <div class="alert alert-danger">{{errorMessage}}</div>
+  {{/if}}
+
+  {{#if message}}
+    <div class="alert alert-info">{{message}}</div>
+  {{/if}}
+
+  {{#if flights.length}}
+    <h4>Available Flights</h4>
+    <hr>
+    <div class="list-group">
+      {{#each flights}}
+        <div class="list-group-item mb-2">
+          <h5>{{airline}} {{flightNumber}}</h5>
+          <p>
+            Origin: {{origin}} <br>
+            Destination: {{destination}} <br>
+            Departure: {{departure}} <br>
+            Arrival: {{arrival}} <br>
+            Seats available: {{seatsAvailable}} <br>
+            Price: PHP{{price}}
+          </p>
+          <form action="/bookFlight" method="POST">
+            <input type="hidden" name="flightId" value="{{_id}}">
+            <input type="hidden" name="passengerCount" value="{{../search.passengerCount}}">
+            <button type="submit" class="btn btn-primary">Book</button>
+          </form>
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+</div>
+
 <script src="SearchFlightscript.js"></script>
