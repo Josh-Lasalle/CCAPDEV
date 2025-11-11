@@ -1,4 +1,3 @@
-<!-- Form Inputs -->
 <h3 class="align-center"> Search Flights </h3>
 <hr class="hr-adjustment2">
 
@@ -12,10 +11,10 @@
         <span class="input-group-text">Select an origin</span>
         <select id="origin" name="origin" class="form-select form-select-sm" required>
             <option selected value=""> -- Choose Country -- </option>
-            <option value="manila"> Manila (MNL) </option>
-            <option value="beijing"> Beijing (BJS) </option>
-            <option value="rome"> Rome (ROM) </option>
-            <option value="san_francisco"> San Francisco (SFO) </option>
+            <option value="Manila"> Manila (MNL) </option>
+            <option value="Beijing"> Beijing (BJS) </option>
+            <option value="Rome"> Rome (ROM) </option>
+            <option value="San Francisco"> San Francisco (SFO) </option>
             <option value="seoul"> Seoul (SEL) </option>
           </select>
       </div>   
@@ -26,11 +25,11 @@
            <span class="input-group-text">Select a destination</span>
               <select id="destination" name="destination" class="form-select form-select-sm" required>
                     <option selected value=""> -- Choose Country -- </option>
-                    <option value="manila"> Manila (MNL) </option>
-                    <option value="beijing"> Beijing (BJS) </option>
-                    <option value="rome"> Rome (ROM) </option>
-                    <option value="san_francisco"> San Francisco (SFO) </option>
-                    <option value="seoul"> Seoul (SEL) </option>
+                    <option value="Manila"> Manila (MNL) </option>
+                    <option value="Beijing"> Beijing (BJS) </option>
+                    <option value="Rome"> Rome (ROM) </option>
+                    <option value="San Francisco"> San Francisco (SFO) </option>
+                    <option value="Seoul"> Seoul (SEL) </option>
               </select>
     </div>   
   </div>  
@@ -57,7 +56,6 @@
 </div>
 <div id="flightMessage"></div>
 
-<!-- Existing Form Above -->
 
 <div id="flightResults" class="mt-4">
   {{#if errorMessage}}
@@ -78,9 +76,9 @@
           <p>
             Origin: {{origin}} <br>
             Destination: {{destination}} <br>
-            Departure: {{departure}} <br>
-            Arrival: {{arrival}} <br>
-            Seats available: {{seatsAvailable}} <br>
+            Departure Date: {{departureDate}} <br>
+            Time: {{departureTime}} <br>
+            Seats : {{passengerCount}}/{{seatCap}} <br>
             Price: PHP{{price}}
           </p>
           <form action="/bookFlight" method="POST">
@@ -94,4 +92,3 @@
   {{/if}}
 </div>
 
-<script src="SearchFlightscript.js"></script>
