@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 
 //register
 router.get('/register', (req, res) => {
-  res.render('users/register', {layout: 'AdminMain'});
+  res.render('users/register', {layout: 'LoginMain'});
 });
 
 router.post('/register', async (req, res) => {
@@ -37,7 +37,7 @@ router.post('/register', async (req, res) => {
     }
 
     res.render('users/register', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,                  
       user: { username, email }
     });
@@ -148,7 +148,7 @@ router.post('/delete/:id', (req, res) => {
 
 //login
 router.get('/login', (req, res) => {
-  res.render('users/login', {layout: 'AdminMain',});
+  res.render('users/login', {layout: 'LoginMain',});
 });
 
 router.post('/login', async (req, res) => {
@@ -159,7 +159,7 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       return res.render('users/login', {
-        layout: 'AdminMain',
+        layout: 'LoginMain',
         errors: { username: 'User not found' },
         user: { username }
       });
@@ -167,7 +167,7 @@ router.post('/login', async (req, res) => {
 
     if (user.password !== password) {
       return res.render('users/login', {
-        layout: 'AdminMain',
+        layout: 'LoginMain',
         errors: { password: 'Incorrect password' },
         user: { username }
       });
@@ -178,7 +178,7 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.error('Login error:', err);
     res.render('users/login', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors: { general: 'An unexpected error occurred. Please try again.' },
       user: { username }
     });
