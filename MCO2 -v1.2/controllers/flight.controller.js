@@ -22,8 +22,10 @@ router.post('/add', async (req, res) => {
     aircraftType,
     origin,
     destination,
-    departure,
-    arrival,
+    departureDate,
+    departureTime,
+    arrivalDate,
+    arrivalTime,
     seatCap,
     price
   } = req.body;
@@ -38,11 +40,11 @@ router.post('/add', async (req, res) => {
       errors.destination = 'Origin and destination cannot be the same.';
     }
 
-  const departureDate = new Date(departure);
-  const arrivalDate = new Date(arrival);
+  const d_Date = new Date(departureDate);
+  const a_Date = new Date(arrivalDate);
 
-  if (arrivalDate < departureDate) {
-    errors.arrival = 'Arrival time cannot be earlier than departure time.';
+  if (a_Date < d_Date) {
+    errors.arrivalDate = 'Arrival date cannot be earlier than departure date.';
   }
 
   if (price < 0) {
@@ -63,8 +65,10 @@ router.post('/add', async (req, res) => {
         aircraftType,
         origin,
         destination,
-        departure,
-        arrival,
+        departureDate,
+        departureTime,
+        arrivalDate,
+        arrivalTime,
         seatCap,
         price
       }
@@ -78,8 +82,10 @@ router.post('/add', async (req, res) => {
       aircraftType,
       origin,
       destination,
-      departure,
-      arrival,
+      departureDate,
+      departureTime,
+      arrivalDate,
+      arrivalTime,
       seatCap,
       price
     });
@@ -116,8 +122,10 @@ router.post('/add', async (req, res) => {
         aircraftType,
         origin,
         destination,
-        departure,
-        arrival,
+        departureDate,
+        departureTime,
+        arrivalDate,
+        arrivalTime,
         seatCap,
         price
       }
@@ -150,8 +158,10 @@ router.post('/edit/:id', async (req, res) => {
     aircraftType,
     origin,
     destination,
-    departure,
-    arrival,
+    departureDate,
+    departureTime,
+    arrivalDate,
+    arrivalTime,
     seatCap,
     price
   } = req.body;
@@ -167,11 +177,11 @@ router.post('/edit/:id', async (req, res) => {
     errors.destination = 'Origin and destination cannot be the same.';
   }
 
-  const departureDate = new Date(departure);
-  const arrivalDate = new Date(arrival);
+  const d_Date = new Date(departureDate);
+  const a_Date = new Date(arrivalDate);
 
-  if (arrivalDate < departureDate) {
-    errors.arrival = 'Arrival time cannot be earlier than departure time.';
+  if (a_Date < d_Date) {
+    errors.arrivalDate = 'Arrival date cannot be earlier than departure date.';
   }
 
   if (price < 0) {
@@ -193,8 +203,10 @@ router.post('/edit/:id', async (req, res) => {
         aircraftType,
         origin,
         destination,
-        departure,
-        arrival,
+        departureDate,
+        departureTime,
+        arrivalDate,
+        arrivalTime,
         seatCap,
         price
       }
@@ -209,8 +221,10 @@ router.post('/edit/:id', async (req, res) => {
       aircraftType,
       origin,
       destination,
-      departure,
-      arrival,
+      departureDate,
+      departureTime,
+      arrivalDate,
+      arrivalTime,
       seatCap,
       price
     });
@@ -238,8 +252,10 @@ router.post('/edit/:id', async (req, res) => {
         aircraftType,
         origin,
         destination,
-        departure,
-        arrival,
+        departureDate,
+        departureTime,
+        arrivalDate,
+        arrivalTime,
         seatCap,
         price
       }
