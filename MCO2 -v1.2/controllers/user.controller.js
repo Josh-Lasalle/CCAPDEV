@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
 
 //add
 router.get('/add', (req, res) => {
-  res.render('users/add', {layout: 'AdminMain'});
+  res.render('users/add', {layout: 'LoginMain'});
 });
 
 router.post('/add', async (req, res) => {
@@ -91,7 +91,7 @@ router.post('/add', async (req, res) => {
     }
 
     res.render('users/add', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,                  
       user: { username, email, role }
     });
@@ -103,7 +103,7 @@ router.post('/add', async (req, res) => {
 router.get('/edit/:id', async (req, res) => {
   try {
     const data = await User.findById(req.params.id).lean();
-    res.render('users/edit', { layout: 'AdminMain', user: data });
+    res.render('users/edit', { layout: 'LoginMain', user: data });
   } catch (err) {
     console.log('Error while retrieving the record:\n', err);
   }
@@ -130,7 +130,7 @@ router.post('/edit/:id', async (req, res) => {
     }
 
     res.render('users/edit', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,
       user: { _id: req.params.id, username, email, role }
     });
