@@ -180,6 +180,44 @@ router.post('/login', async (req, res) => {
     } else {
       res.redirect(`/client/home/${user.username}`);
     }
+
+// Client Update ---- // Used in ClientProfile
+router.post('/profile/update/:username', (req, res) => {
+  const oldUsername = req.params.username;
+  const { username, email, password, confirmPassword } = req.body;
+  if (password && password !== confirmPassword) {
+    console.log('Passwords do not match');
+    return res.redirect(`/client/profile/${oldUsername}?status=0`);
+  }
+  const updateData = { username: username, email: email };
+  if (password) {
+    updateData.password = password;
+  }
+  User.findOneAndUpdate(
+    { username: oldUsername }, updateData, { runValidators: true }
+  )
+    .then(user => {
+      res.redirect(`/client/profile/${username}?status=1`);
+    })
+    .catch(err => {
+      console.error('Update error (or validation failed):', err);
+      res.redirect(`/client/profile/${oldUsername}?status=0`);
+    });
+});
+
+// Client Delete ---- // Used in ClientProfile
+router.post('/profile/delete/:username', (req, res) => {
+  const username = req.params.username;
+  User.findOneAndDelete({ username: username })
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => {
+      console.error('Delete error', err);
+      res.redirect(`/client/profile/${username}`);
+    });
+});
+    
   } catch (err) {
     console.error('Login error:', err);
     res.render('users/login', {
@@ -191,4 +229,5 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
 
