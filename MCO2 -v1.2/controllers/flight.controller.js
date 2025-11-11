@@ -5,7 +5,7 @@ const Flight = require('../models/flight.model');
 
 router.get('/add', (req, res) => {
   res.render('flights/add', {
-    layout: 'AdminMain',
+    layout: 'LoginMain',
     flight: {
       airline: 'Bing Bong Airlines',
       aircraftType: 'Bing Bong Air Carrier',
@@ -57,7 +57,7 @@ router.post('/add', async (req, res) => {
 
   if (Object.keys(errors).length > 0) {
     return res.render('flights/add', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,
       flight: {
         flightNum,
@@ -114,7 +114,7 @@ router.post('/add', async (req, res) => {
     }
 
     res.render('flights/add', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,
       flight: {
         flightNum,
@@ -147,7 +147,7 @@ router.get('/', (req, res) => {
 //edit
 router.get('/edit/:id', (req, res) => {
   Flight.findById(req.params.id).lean()
-    .then(data => res.render('flights/edit', { layout: 'AdminMain', flight: data }))
+    .then(data => res.render('flights/edit', { layout: 'LoginMain', flight: data }))
     .catch(err => console.log('Error while retrieving the record:\n', err));
 });
 
@@ -194,7 +194,7 @@ router.post('/edit/:id', async (req, res) => {
 
   if (Object.keys(errors).length > 0) {
     return res.render('flights/edit', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,
       flight: {
         _id: req.params.id,
@@ -243,7 +243,7 @@ router.post('/edit/:id', async (req, res) => {
     }
 
     res.render('flights/edit', {
-      layout: 'AdminMain',
+      layout: 'LoginMain',
       errors,
       flight: {
         _id: req.params.id,
