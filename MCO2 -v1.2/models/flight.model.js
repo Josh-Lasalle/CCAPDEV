@@ -32,12 +32,20 @@ const FlightSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  departure:{
+  departureDate:{
     type: Date, 
     required: true
   },
-  arrival: {
+  departureTime:{
+    type: String, 
+    required: true
+  },
+  arrivalDate: {
     type: Date,
+    required: true
+  },
+  arrivalTime:{
+    type: String, 
     required: true
   },
   passengerCount: {
