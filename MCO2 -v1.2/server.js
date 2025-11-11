@@ -10,6 +10,7 @@ const seatRoutes = require('./controllers/seat.controller');
 const userRoutes = require('./controllers/user.controller');
 const adminRoutes = require('./controllers/admin.controller');
 const clientRoutes = require('./controllers/client.controller');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -34,6 +35,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.render('users/login', { title: 'Bing Bong Airlines'});
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/client', clientRoutes);
 app.use('/admin', adminRoutes);
