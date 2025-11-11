@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Flight = require('../models/flight.model');
+const User = require('../models/user.model');
 
 // Client Home
 router.get('/home', (req, res) => {
@@ -10,7 +11,7 @@ router.get('/home', (req, res) => {
   });
 });
 
-// Client Home
+// Client Search
 router.get('/search', (req, res) => {
   res.render('client/ClientSearch', { 
     title: 'Client Search Flight Page', 
@@ -60,6 +61,7 @@ router.post('/searchFlight', async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 
