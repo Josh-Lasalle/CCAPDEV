@@ -26,6 +26,20 @@
         {{/if}}
       </div>
     </div>
+  </div>
+
+  <div class="form-floating mb-3">
+    <select id="role" name="role" class="form-select">
+      <option value="Client" selected>Client</option>
+      <option value="Admin">Admin</option>
+    </select>
+    <label>Role</label>
+    {{#if errors.role}}
+      <div class="text-danger">{{errors.role}}</div>
+    {{/if}}
+  </div>
+
+
   <div class=" float-end">
         <button type="submit" id="submitRegister" class="btn btn-success">Submit</button>
       </div>
