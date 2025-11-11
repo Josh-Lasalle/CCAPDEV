@@ -91,7 +91,7 @@ router.post('/add', async (req, res) => {
     });
 
     if (!newFlight.seats || newFlight.seats.length === 0) {
-      const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
+      const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       for (let i = 1; i <= 10; i++) {
         for (const row of rows) {
           newFlight.seats.push({ seatNumber: `${row}${i}`, isVacant: true });
