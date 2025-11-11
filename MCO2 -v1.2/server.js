@@ -33,7 +33,7 @@ app.use(express.json());
 
 // ===== 4⃣ ROUTES =====
 app.get('/', (req, res) => {
-  res.render('users/login', { title: 'Bing Bong Airlines'});
+  res.render('users/login', {layout: 'LoginMain'});
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
