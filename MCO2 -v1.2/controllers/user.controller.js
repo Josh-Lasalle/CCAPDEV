@@ -172,13 +172,8 @@ router.post('/login', async (req, res) => {
         user: { username }
       });
     }
-    //Modification to redirect user to either client or admin landing page
-    if (user.role === 'Admin') {
-      res.redirect('/admin/home');
-    } else {
-      res.redirect(`/client/home/`);
-    }
-    //res.redirect('/users');
+
+    res.redirect('/users');
     
   } catch (err) {
     console.error('Login error:', err);
@@ -191,4 +186,3 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
-
