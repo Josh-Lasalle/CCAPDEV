@@ -19,11 +19,36 @@ router.get('/search', (req, res) => {
 });
 
 // Client Profile 
-router.get('/profile', (req, res) => {
-  res.render('client/ClientProfile', {
-    title: 'Client Profile Page',
-  });
+router.get('/profile/:username', (req, res) => {
+  User.findOne({ username: req.params.username }).lean()
+    .then(user => {
+      if (!user) {
+        return res.send('User not found.');
+      }
+      var successMessage = null;
+      var errorMessage = null;
+      if (req.query.status === '1') {
+        successMessage = 'Profile updated';
+      }
+      if (req.query.status === '0') {
+        errorMessage = 'Update fail';
+      }
+      if (req.query.error === '2') {
+        errorMessage = 'Passwords did not match';
+      }
+      res.render('client/ClientProfile', {
+        title: 'Client Profile Page',
+        user: user,
+        successMsg: successMessage,
+        errorMsg: errorMessage
+      });
+    })
+    .catch(err => {
+      console.log('Error', err);
+      res.redirect('/client/home');
+    });
 });
+
 
 // Client Book
 router.get('/book', (req, res) => {
@@ -129,6 +154,7 @@ router.post('/bookFlight', async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 
