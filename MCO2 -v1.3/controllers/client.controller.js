@@ -68,9 +68,34 @@ router.post('/submitReservation', async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).send('User not found');
 
+    // Fetch flight to get base price
+    const flight = await Flight.findOne({ flightNum });
+    if (!flight) return res.status(404).send('Flight not found');
+
+    // Compute meal charge
+    let mealCharge = 0;
+    if (meal !== 'No Meal') {
+      mealCharge = 300;
+    }
+
+    // Compute baggage charge
+    let baggageCharge = 0;
+    switch (baggage) {
+      case '20 kg': baggageCharge = 500; break;
+      case '24 kg': baggageCharge = 750; break;
+      case '28 kg': baggageCharge = 1000; break;
+      case '32 kg': baggageCharge = 1250; break;
+      default: baggageCharge = 0; // No Baggage
+    }
+
+    // Total price
+    const totalPrice = flight.price + mealCharge + baggageCharge;
+
+    // Generate unique reference number
     const passengerCount = await Passenger.countDocuments();
     const referenceNum = `X${passengerCount + 1}`;
 
+    // Create passenger
     const newPassenger = new Passenger({
       fullName,
       email,
@@ -80,6 +105,7 @@ router.post('/submitReservation', async (req, res) => {
       baggage,
       seat: seatSelection,
       referenceNum,
+      price: totalPrice,
     });
     await newPassenger.save();
 
@@ -88,7 +114,7 @@ router.post('/submitReservation', async (req, res) => {
     user.referenceNums.push(referenceNum);
     await user.save();
 
-    // Mark seat as occupied
+    // Mark seat as occupied and increment passenger count
     await Flight.updateOne(
       { flightNum, 'seats.seatNumber': seatSelection },
       { 
@@ -375,9 +401,3 @@ router.get('/success', (req, res) => {
 });
 
 module.exports = router;
-
-
-
-
-
-
