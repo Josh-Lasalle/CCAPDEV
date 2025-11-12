@@ -8,7 +8,7 @@
             </h1>
             <div class="row">
               <div class="col-md-12">
-                <form id="reservationForm" action="/client/submitReservation" method="POST">
+                <form id="reservationForm" action="/client/submitReservation" method="POST" data-flight-price="{{flight.price}}">
     <table id="userInfoTable" class="w-100">
       <tr>
         <td colspan="2"><h5 class="fs-4">User Information</h5></td>
@@ -72,7 +72,7 @@
   {{#each seatsByRow}}
     <div class="row justify-content-center mb-2">
 
-      {{!-- Left side --}}
+      <!-- Left side -->
       {{#each this.left}}
         <input type="radio" 
                class="btn-check" 
@@ -90,7 +90,7 @@
 
       <span style="display:inline-block; width:30px;"></span> <!-- aisle -->
 
-      {{!-- Right side --}}
+      <!-- Right side -->
       {{#each this.right}}
         <input type="radio" 
                class="btn-check" 
@@ -112,8 +112,10 @@
 </div>
                 
   <div id="submitButtonReservationDiv">
-    <button type="submit" class="btn btn-secondary">Submit</button>
-  </div>
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+    Submit
+  </button>
+</div>
   </div>
   </form>
               </div>
@@ -209,4 +211,3 @@
   });
 </script>
   
-
