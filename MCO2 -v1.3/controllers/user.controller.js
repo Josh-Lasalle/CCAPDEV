@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/user.model');
 
 
-//register
+// ===== Register =====
 router.get('/register', (req, res) => {
   res.render('users/register', {layout: 'LoginMain'});
 });
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
 });
 
 
-//index
+// ===== Index =====
 router.get('/', (req, res) => {
   User.find().lean()
     .then(data => {
@@ -57,7 +57,7 @@ router.get('/', (req, res) => {
 });
 
 
-//add
+// ===== Add =====
 router.get('/add', (req, res) => {
   res.render('users/add', {layout: 'LoginMain'});
 });
@@ -99,7 +99,7 @@ router.post('/add', async (req, res) => {
 });
 
 
-//edit
+// ===== Edit =====
 router.get('/edit/:id', async (req, res) => {
   try {
     const data = await User.findById(req.params.id).lean();
@@ -138,16 +138,14 @@ router.post('/edit/:id', async (req, res) => {
 });
 
 
-//delete
+// ===== Delete ===== 
 router.post('/delete/:id', (req, res) => {
   User.findByIdAndDelete(req.params.id)
     .then(() => res.redirect('/users'))
     .catch(err => console.log('error during deletion:\n', err))
 })
 
-
-//login
-// Login routes
+// ===== Login routes =====
 router.get('/login', (req, res) => {
   res.render('users/login', { layout: 'LoginMain' });
 });
@@ -173,12 +171,12 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // SESSION HANDLING
+    // ===== SESSION HANDLING =====
     req.session.userId = user._id;
     req.session.username = user.username;
     req.session.role = user.role;
 
-    // REDIRECT
+    // ===== REDIRECT =====
     if (user.role === 'Admin') {
       res.redirect('/admin/home');
     } else {
@@ -194,6 +192,20 @@ router.post('/login', async (req, res) => {
     });
   }
 });
+
+// ===== Logout =====
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Session destroy error:', err);
+      res.clearCookie('connect.sid'); 
+      return res.redirect('/');
+    }
+    res.clearCookie('connect.sid');
+    return res.redirect('/');
+  });
+});
+
 
 // ===== Client Update Route =====
 router.post('/profile/update/:username', (req, res) => {
