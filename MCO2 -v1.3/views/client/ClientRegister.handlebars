@@ -1,62 +1,72 @@
-<div id="mainDiv">
-        <h1>Reservation Form</h1>
-           <form id="reservationForm" action="/client/submitReservation" method="POST">
-                <table id="userInfoTable">
-                    <tr>
-                        <td colspan="2"><h5>User Information</h5></td>
-                    </tr>
-                    <tr>
-                        <td><div class="input-group mb-3">
-                            <span class="input-group-text">Full Name:</span>
-                            <input id="fullName" name="fullName" type="text" class="form-control form-control-sm">                       
-                        </div></td>   
-                        <td><div class="input-group mb-3">
-                            <span class="input-group-text">Email Address:</span>
-                            <input id="email" name="email" type="email" class="form-control form-control-sm">
-                        </div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="input-group mb-3">
-                            <span class="input-group-text">Passport No.</span>
-                            <input id="passportID" name="passportID" type="tel"  class="form-control form-control-sm">
-                        </div></td>
-                         <td><div class="input-group mb-3">
-                            <span class="input-group-text">Flight No.</span>
-                            <input id="flightNum" name="flightNum" type="text" value="{{flight.flightNum}}" readonly class="form-control form-control-sm">                       
-                        </div></td>   
-                    </tr>
-                </table>
-                <table id="packageSelectionTable">
-                    <tr>
-                        <td colspan="2"><h5>Package Selection</h5></td>
-                    </tr>
-                    <tr>
-                        <td><div class="input-group mb-3">
-                            <span class="input-group-text">Meal Option:</span>
-                            <select class="form-select" aria-label="meal" id="meal" name="meal">
-                            <option value="No Meal" selected>No Meal</option>
-                            <option value="Standard">Standard</option>
-                            <option value="Vegetarian">Vegetarian</option>
-                            <option value="Kosher">Kosher</option>
-                            </select>
-                        </div></td> 
-                        <td><div class="input-group mb-3">
-                            <span class="input-group-text">Baggage:</span>
-                            <select class="form-select" aria-label="baggage" id="baggage" name="baggage">
-                            <option value="No Baggage" selected>No Baggage</option>
-                            <option value="20 kg">20 kg</option>
-                            <option value="24 kg">24 kg</option>
-                            <option value="28 kg">28 kg</option>
-                            <option value="32 kg">32 kg</option>
-                            </select>
-                    </tr>
+<div class="container my-2">
+    <div class="row">
+      <div class="col-ld-6">
+        <div class="card mt-5 shadow">
+          <div class="card-body">
+            <h1 class="dispaly-6 fw-bold text-center my-4">
+              Reservation Form
+            </h1>
+            <div class="row">
+              <div class="col-md-12">
+                <form id="reservationForm" action="/client/submitReservation" method="POST">
+    <table id="userInfoTable" class="w-100">
+      <tr>
+        <td colspan="2"><h5 class="fs-4">User Information</h5></td>
+      </tr>
+      <tr>
+      <td class="px-1">
+        <div class="row"></div>
+        <div class="col-md-6"></div>
+        <div class="input-group mb-3">
+          <span class="input-group-text fs-5">Full Name:</span>
+          <input id="fullName" name="fullName" type="text" class="form-control form-control-sm fs-5">                       
+        </div>
+        </td>   
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Email Address:</span>
+          <input id="email" name="email" type="email" class="form-control form-control-sm fs-5">
+        </div></td>
+        </tr>
+        <tr>
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Passport No.</span>
+          <input id="passportID" name="passportID" type="tel"  class="form-control form-control-sm fs-5">
+        </div></td>
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Flight No.</span>
+          <input id="flightNum" name="flightNum" type="text" value="{{flight.flightNum}}" readonly class="form-control form-control-sm fs-5">                       
+        </div></td>   
+        </tr>
+        </table>
+        <table id="packageSelectionTable" class="w-100">
+        <tr>
+        <td colspan="2" class="px-1"><h5 class="fs-4">Package Selection</h5></td>
+        </tr>
+        <tr>
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Meal Option:</span>
+            <select class="form-select fs-5" aria-label="meal" id="meal" name="meal">
+              <option value="No Meal" selected>No Meal</option>
+              <option value="Standard">Standard (+300 PHP) </option>
+              <option value="Vegetarian">Vegetarian (+300 PHP) </option>
+              <option value="Kosher">Kosher (+300 PHP) </option>
+              </select>
+            </div></td> 
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Baggage:</span>
+            <select class="form-select fs-5" aria-label="baggage" id="baggage" name="baggage">
+              <option value="No Baggage" selected>No Baggage</option>
+              <option value="20 kg">20 kg (+500 PHP) </option>
+              <option value="24 kg">24 kg (+750 PHP) </option>
+              <option value="28 kg">28 kg (+1000 PHP) </option>
+              <option value="32 kg">32 kg (+1250 PHP) </option>
+            </select>
+        </tr>
                 
 
-                </table>
-
-                    <div class="container text-center mt-4">
-            <h3>Seat Selection</h3>
-
+        </table>
+          <div class="container text-center mt-4">
+          <h3>Seat Selection</h3>
           <div id="planeBox" class="d-inline-block mt-3">
 
   {{#each seatsByRow}}
@@ -101,8 +111,18 @@
 
 </div>
                 
-     <div id="submitButtonReservationDiv">
-         <button type="submit" class="btn btn-secondary">Submit</button>
-           </div>
+  <div id="submitButtonReservationDiv">
+    <button type="submit" class="btn btn-secondary">Submit</button>
+  </div>
+  </div>
+  </form>
+              </div>
+            </div>
+          </div>
         </div>
-        </form>
+
+      </div>
+    </div>
+  </div>
+
+  
