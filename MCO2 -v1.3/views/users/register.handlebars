@@ -1,7 +1,7 @@
 <form action="/users/register" method="POST">
  <h1 class="dispaly-6 fw-bold text-center my-4">Register User</h1>
   <div class="form-floating mb-3">
-    <input id="username" name="username" class="form-control" placeholder="please provide a username" required value="{{user.username}}">
+    <input id="username" name="username" class="form-control" required value="{{user.username}}">
     <label>Username</label>
     {{#if errors.username}}
         <div class="text-danger">{{errors.username}}</div>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="form-floating mb-3">
-    <input id="password" name="password" class="form-control" placeholder="please provide a password" required>
+    <input id="password" name="password" class="form-control" required>
     <label>Password</label>
     {{#if errors.password}}
         <div class="text-danger">{{errors.password}}</div>
@@ -19,7 +19,7 @@
   <div class="row mb-3">
     <div class="col">
       <div class="form-floating mb-3">
-        <input id="email" type="email" name="email" class="form-control" placeholder="please provide a valid email address" required value="{{user.email}}">
+        <input id="email" type="email" name="email" class="form-control" required value="{{user.email}}">
         <label>Email</label>
         {{#if errors.email}}
             <div class="text-danger">{{errors.email}}</div>
