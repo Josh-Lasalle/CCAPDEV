@@ -332,6 +332,9 @@ router.post('/editPassenger/:passengerId', async (req, res) => {
     const passenger = await Passenger.findById(req.params.passengerId);
     if (!passenger) return res.status(404).send('Passenger not found');
 
+    const flight = await Flight.findOne({ flightNum: passenger.flightNum });
+    if (!flight) return res.status(404).send('Flight not found');
+
     // Update passenger info
     passenger.fullName = fullName;
     passenger.email = email;
@@ -339,18 +342,33 @@ router.post('/editPassenger/:passengerId', async (req, res) => {
     passenger.meal = meal;
     passenger.baggage = baggage;
 
+    // Recalculate price using same logic as add
+    let mealCharge = 0;
+    if (meal !== 'No Meal') mealCharge = 300;
+
+    let baggageCharge = 0;
+    switch (baggage) {
+      case '20 kg': baggageCharge = 500; break;
+      case '24 kg': baggageCharge = 750; break;
+      case '28 kg': baggageCharge = 1000; break;
+      case '32 kg': baggageCharge = 1250; break;
+      default: baggageCharge = 0;
+    }
+
+    passenger.price = flight.price + mealCharge + baggageCharge;
+
     // Update seat if changed
     if (passenger.seat !== seatSelection) {
-      const flight = await Flight.findOne({ flightNum: passenger.flightNum });
-      // free previous seat
+      // Free previous seat
       const prevSeat = flight.seats.find(s => s.seatNumber === passenger.seat);
       if (prevSeat) prevSeat.isVacant = true;
-      // occupy new seat
+
+      // Occupy new seat
       const newSeat = flight.seats.find(s => s.seatNumber === seatSelection);
       if (newSeat) newSeat.isVacant = false;
-      await flight.save();
 
       passenger.seat = seatSelection;
+      await flight.save();
     }
 
     await passenger.save();
