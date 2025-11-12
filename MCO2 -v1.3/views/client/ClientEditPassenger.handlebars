@@ -1,14 +1,13 @@
-<div id="mainDiv">
-        <h1>Edit Passenger</h1>
-           <form id="reservationForm" action="/client/editPassenger/{{passenger._id}}" method="POST">
-                <table id="userInfoTable">
-                    <tr>
-                        <td colspan="2"><h5>User Information</h5></td>
-                    </tr>
-                    <tr>
-                        <td><div class="input-group mb-3">
-                            <span class="input-group-text">Full Name:</span>
-                            <input id="fullName" name="fullName" type="text" value="{{passenger.fullName}}" class="form-control form-control-sm">                       
+<h1>Edit Passenger</h1>
+  <form id="reservationForm" action="/client/editPassenger/{{passenger._id}}" method="POST">
+    <table id="userInfoTable">
+      <tr>
+        <td colspan="2"><h5>User Information</h5></td>
+      </tr>
+      <tr>
+        <td><div class="input-group mb-3">
+          <span class="input-group-text">Full Name:</span>
+           <input id="fullName" name="fullName" type="text" value="{{passenger.fullName}}" class="form-control form-control-sm">                       
                         </div></td>   
                         <td><div class="input-group mb-3">
                             <span class="input-group-text">Email Address:</span>
@@ -62,7 +61,7 @@
   {{#each seatsByRow}}
     <div class="row justify-content-center mb-2">
 
-      {{!-- Left side --}}
+      <!-- Left side -->
       {{#each this.left}}
         <input type="radio" 
                class="btn-check" 
@@ -82,7 +81,7 @@
 
       <span style="display:inline-block; width:30px;"></span> <!-- aisle -->
 
-      {{!-- Right side --}}
+      <!-- Right side -->
       {{#each this.right}}
         <input type="radio" 
                class="btn-check" 
