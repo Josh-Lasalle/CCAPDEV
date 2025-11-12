@@ -125,4 +125,88 @@
     </div>
   </div>
 
+
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirm Reservation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>
+        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+        <p><strong>Passport ID:</strong> <span id="modalPassport"></span></p>
+        <p><strong>Flight Number:</strong> <span id="modalFlight"></span></p>
+        <p><strong>Seat:</strong> <span id="modalSeat"></span></p>
+        <p><strong>Meal:</strong> <span id="modalMeal"></span></p>
+        <p><strong>Baggage:</strong> <span id="modalBaggage"></span></p>
+        <hr>
+        <p><strong>Price Breakdown:</strong></p>
+        <ul>
+          <li>Flight Price: PHP <span id="modalFlightPrice"></span></li>
+          <li>Meal Charge: PHP <span id="modalMealPrice"></span></li>
+          <li>Baggage Charge: PHP <span id="modalBaggagePrice"></span></li>
+        </ul>
+        <p><strong>Total Price: PHP <span id="modalTotalPrice"></span></strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="confirmSubmit" class="btn btn-primary">Book</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('reservationForm');
+  const confirmBtn = document.getElementById('confirmSubmit');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+  });
+
+  document.querySelector('[data-bs-toggle="modal"]').addEventListener('click', function() {
+    
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const passportID = document.getElementById('passportID').value;
+    const flightNum = document.getElementById('flightNum').value;
+    const meal = document.getElementById('meal').value;
+    const baggage = document.getElementById('baggage').value;
+    const seatSelection = document.querySelector('input[name="seatSelection"]:checked')?.value || '';
+
+    let mealCharge = 0;
+    if (meal !== 'No Meal') mealCharge = 300;
+
+    let baggageCharge = 0;
+    switch (baggage) {
+      case '20 kg': baggageCharge = 500; break;
+      case '24 kg': baggageCharge = 750; break;
+      case '28 kg': baggageCharge = 1000; break;
+      case '32 kg': baggageCharge = 1250; break;
+      default: baggageCharge = 0;
+    }
+
+    const flightPrice = parseInt(form.dataset.flightPrice); 
+    const totalPrice = flightPrice + mealCharge + baggageCharge;
+
+    document.getElementById('modalFullName').innerText = fullName;
+    document.getElementById('modalEmail').innerText = email;
+    document.getElementById('modalPassport').innerText = passportID;
+    document.getElementById('modalFlight').innerText = flightNum;
+    document.getElementById('modalSeat').innerText = seatSelection;
+    document.getElementById('modalMeal').innerText = meal;
+    document.getElementById('modalBaggage').innerText = baggage;
+    document.getElementById('modalFlightPrice').innerText = flightPrice;
+    document.getElementById('modalMealPrice').innerText = mealCharge;
+    document.getElementById('modalBaggagePrice').innerText = baggageCharge;
+    document.getElementById('modalTotalPrice').innerText = totalPrice;
+  });
+
+  confirmBtn.addEventListener('click', function() {
+    form.submit();
+  });
+</script>
   
+
