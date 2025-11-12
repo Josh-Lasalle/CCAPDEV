@@ -1,0 +1,17 @@
+<h1 class="display-6 fw-bold text-center my-4">My Reservations</h1>
+<p class="lead text-center mb-4">Here are all your upcoming flights, {{username}}.</p>
+
+<div class="list-group">
+  {{#each reservations}}
+    <a href="/client/ClientDetails/{{referenceNum}}" class="list-group-item list-group-item-action">
+      <span class="badge bg-primary float-end">1 Passenger</span>
+      <div>
+        <h5 class="mb-1">{{origin}} to {{destination}}</h5>
+        <p class="mb-1 text-muted">Flight No: {{flightNum}}</p>
+        <p class="mb-0 text-muted">Departure: {{departureDate}} at {{departureTime}}</p>
+        <p class="mb-0 text-muted">Departure: {{arrivalDate}} at {{arrivalTime}}</p>
+        <p class="mb-0 text-muted">Reference #: {{referenceNum}}</p>
+      </div>
+    </a>
+  {{/each}}
+</div>

@@ -1,0 +1,110 @@
+<form action="/flights/edit/{{flight._id}}" id="registerForm" method="post">
+<h1 class="dispaly-6 fw-bold text-center my-4">Edit Flights</h1>
+<div class="form-floating mb-3">
+    <input id="flightNum" name="flightNum" class="form-control" placeholder="please provide a flight number" required value="{{flight.flightNum}}">
+    <label>Flight Number</label>
+    {{#if errors.flightNum}}
+        <div class="text-danger">{{errors.flightNum}}</div>
+    {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="airline" name="airline" class="form-control" placeholder="please provide an airline" required value="{{flight.airline}}">
+    <label>Airline</label>
+    {{#if errors.airline}}
+        <div class="text-danger">{{errors.airline}}</div>
+    {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="aircraftType" name="aircraftType" class="form-control" placeholder="please provide an aircraft type" required value="{{flight.aircraftType}}">
+    <label>Aircraft Type</label>
+        {{#if errors.aircraftType}}
+            <div class="text-danger">{{errors.aircraftType}}</div>
+        {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+        <select id="origin" name="origin" class="form-select"placeholder="please provide an origin" required value="{{flight.origin}}">
+            <option value="Manila"> Manila (MNL) </option>
+            <option value="Beijing"> Beijing (BJS) </option>
+            <option value="Rome"> Rome (ROM) </option>
+            <option value="San Francisco"> San Francisco (SFO) </option>
+            <option value="Seoul"> Seoul (SEL) </option>
+    </select>
+    <label>Origin</label>
+    {{#if errors.origin}}
+      <div class="text-danger">{{errors.origin}}</div>
+    {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+        <select id="destination" name="destination" class="form-select" placeholder="please provide a destination" value="{{flight.destination}}">
+            <option value="Manila"> Manila (MNL) </option>
+            <option value="Beijing"> Beijing (BJS) </option>
+            <option value="Rome"> Rome (ROM) </option>
+            <option value="San Francisco"> San Francisco (SFO) </option>
+            <option value="Seoul"> Seoul (SEL) </option>
+    </select>
+    <label>Destination</label>
+    {{#if errors.destination}}
+      <div class="text-danger">{{errors.destination}}</div>
+    {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="departureDate" name="departureDate" type="date" class="form-control" placeholder="Select a departure date" value="{{flight.departureDate}}" required>
+    <label>Departure Date</label>
+    {{#if errors.departureDate}}
+        <div class="text-danger">{{errors.departureDate}}</div>
+    {{/if}}
+  </div>
+
+  <div class="form-floating mb-3">
+    <input id="departureTime" name="departureTime" type="time" class="form-control" placeholder="Select a departure time" required value="{{flight.departureTime}}" required>
+    <label>Departure Time</label>
+    {{#if errors.departureTime}}
+        <div class="text-danger">{{errors.departureTime}}</div>
+    {{/if}}
+  </div>
+
+
+  <div class="form-floating mb-3">
+    <input id="arrivalDate" name="arrivalDate" type="date" class="form-control" placeholder="Select an arrival date" required value="{{flight.arrivalDate}}" required>
+    <label>Arrival Date</label>
+    {{#if errors.arrivalDate}}
+        <div class="text-danger">{{errors.arrivalDate}}</div>
+    {{/if}}
+  </div>
+
+  <div class="form-floating mb-3">
+    <input id="arrivalTime" name="arrivalTime" type="time" class="form-control" placeholder="Select an arrival time" required value="{{flight.arrivalTime}}" required>
+    <label>Arrival Time</label>
+    {{#if errors.arrivalTime}}
+        <div class="text-danger">{{errors.arrivalTime}}</div>
+    {{/if}}
+  </div>
+
+<div class="form-floating mb-3">
+    <input id="seatCap" name="seatCap" class="form-control" type="number" placeholder="please provide a seat capacity" required value="{{flight.seatCap}}">
+    <label>Seat Capacity</label>
+        {{#if errors.seatCap}}
+            <div class="text-danger">{{errors.seatCap}}</div>
+        {{/if}}
+</div>
+
+<div class="form-floating mb-3">
+    <input id="price" name="price" class="form-control" type="number" placeholder="please provide a price" required value="{{flight.price}}">
+    <label>Price</label>
+        {{#if errors.price}}
+            <div class="text-danger">{{errors.price}}</div>
+        {{/if}}
+</div>
+
+
+<div class=" float-end">
+    <a href="/flights" class="btn btn-secondary">Go Back</a>
+    <button type="submit" id="submitRegister" class="btn btn-success">Submit</button>
+</div>
+
+</form>
