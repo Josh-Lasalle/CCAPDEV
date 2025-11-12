@@ -1,7 +1,7 @@
-<form action="/flights/add" id="registerForm" method="post">
+<form action="/flights/add" method="POST">
  <h1 class="dispaly-6 fw-bold text-center my-4">Add Flight</h1>
   <div class="form-floating mb-3">
-    <input id="flightNum" name="flightNum" class="form-control" placeholder="please provide a flight number" required value="{{flight.flightNum}}">
+    <input id="flightNum" name="flightNum" class="form-control" required value="{{flight.flightNum}}">
     <label>Flight Number</label>
     {{#if errors.flightNum}}
         <div class="text-danger">{{errors.flightNum}}</div>
@@ -19,7 +19,7 @@
   <div class="row mb-3">
     <div class="col">
       <div class="form-floating mb-3">
-        <input id="aircraftType" type="aircraftType" name="aircraftType" class="form-control"  required value="{{flight.aircraftType}}">
+        <input id="aircraftType" type="aircraftType" name="aircraftType" class="form-control" required value="{{flight.aircraftType}}">
         <label>Aircraft Type</label>
         {{#if errors.airline}}
             <div class="text-danger">{{errors.aircraftType}}</div>
@@ -106,7 +106,7 @@
     
   <div class=" float-end">
     <a href="/flights" class="btn btn-secondary">Go Back</a>
-    <button type="submit" id="submitRegister" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Submit</button>
   </div>
   
 </form>
