@@ -35,6 +35,10 @@ const PassengerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Baggage selection is required'],
   },
+  price: {
+    type: Number,
+    required: [true, 'Price is required'],
+  },
   referenceNum: {
     type: String,
     required: [true, 'Reference number is required'],
