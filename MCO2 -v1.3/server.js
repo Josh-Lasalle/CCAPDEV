@@ -43,6 +43,14 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session && req.session.username ? req.session.username : null;
+  const role = req.session && req.session.role ? String(req.session.role).toLowerCase() : null;
+  res.locals.isAdmin = (role === 'admin');
+  res.locals.isClient = (role === 'client');
+  next();
+});
+
 // ===== 4⃣ ROUTES =====
 app.get('/', (req, res) => {
   res.render('users/login', {layout: 'LoginMain'});
