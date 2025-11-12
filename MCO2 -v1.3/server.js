@@ -26,28 +26,25 @@ app.engine('handlebars', engine({
   defaultLayout: 'main'
 }));
 
-
-
 app.set('view engine', 'handlebars');
 app.set('views', './views');
-
-
 
 // ===== 3⃣ MIDDLEWARE =====
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(session({
-  secret: 'yourSecretKey',  // required for signing the session ID
+  secret: 'yourSecretKey',  
   resave: false,
   saveUninitialized: false
 }));
 
 app.use((req, res, next) => {
-  res.locals.currentUser = req.session && req.session.username ? req.session.username : null;
-  const role = req.session && req.session.role ? String(req.session.role).toLowerCase() : null;
-  res.locals.isAdmin = (role === 'admin');
-  res.locals.isClient = (role === 'client');
+  const username = req.session?.username ?? null;
+  const role = String(req.session?.role ?? '').toLowerCase();
+  res.locals.currentUser = username;
+  res.locals.isAdmin = role === 'admin';
+  res.locals.isClient = role === 'client';
   next();
 });
 
