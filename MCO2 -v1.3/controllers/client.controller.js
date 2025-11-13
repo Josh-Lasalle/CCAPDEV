@@ -94,40 +94,53 @@ router.post('/register', async (req, res) => {
   });
 });
 
+//submit button for reservation
 router.post('/submitReservation', async (req, res) => {
   try {
-    const userId = req.session.userId; 
+    const userId = req.session.userId;
     if (!userId) return res.status(401).send('User not logged in');
 
-    const { fullName, email, passportID, flightNum, meal, baggage, seatSelection } = req.body;
+    const { fullName, email, passportID, flightNum, meal, baggage, seatSelection, passengerCount } = req.body;
 
     let errors = {};
 
-    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passportRegex = /^[A-Z]\d{7}$/i;
 
- 
     if (!fullName || fullName.trim() === '') errors.fullName = 'Full name is required';
     if (!emailRegex.test(email)) errors.email = 'Invalid email address';
     if (!passportRegex.test(passportID)) errors.passportID = 'Invalid passport number format (e.g., A1234567)';
 
+    const flight = await Flight.findOne({ flightNum }).lean();
+    if (!flight) return res.status(404).send('Flight not found');
+
+    const rows = ['A','B','C','D','E','F','G','H','I','J'];
+    const seatsByRow = {};
+    rows.forEach(row => {
+      const rowSeats = flight.seats.filter(seat => seat.seatNumber.startsWith(row));
+      seatsByRow[row] = {
+        left: rowSeats.slice(0,3),
+        right: rowSeats.slice(3,6)
+      };
+    });
+
     if (Object.keys(errors).length > 0) {
-     
+    
       return res.render('client/ClientRegister', {
+        title: 'Client Booking Page',
         errors,
-        userInput: { fullName, email, passportID, flightNum, meal, baggage, seatSelection }
+        passenger: { fullName, email, passportID, meal, baggage, seatSelection },
+        flight,
+        passengerCount,
+        seatsByRow
       });
     }
 
+ 
     const user = await User.findById(userId);
     if (!user) return res.status(404).send('User not found');
 
-    const flight = await Flight.findOne({ flightNum });
-    if (!flight) return res.status(404).send('Flight not found');
-
     let mealCharge = meal !== 'No Meal' ? 300 : 0;
-
     let baggageCharge = 0;
     switch (baggage) {
       case '20 kg': baggageCharge = 500; break;
@@ -137,8 +150,9 @@ router.post('/submitReservation', async (req, res) => {
     }
 
     const totalPrice = flight.price + mealCharge + baggageCharge;
-    const passengerCount = await Passenger.countDocuments();
-    const referenceNum = `X${passengerCount + 1}`;
+
+    const passengerCountNow = await Passenger.countDocuments();
+    const referenceNum = `X${passengerCountNow + 1}`;
 
     const newPassenger = new Passenger({
       fullName,
@@ -159,7 +173,7 @@ router.post('/submitReservation', async (req, res) => {
 
     await Flight.updateOne(
       { flightNum, 'seats.seatNumber': seatSelection },
-      { 
+      {
         $set: { 'seats.$.isVacant': false },
         $inc: { passengerCount: 1 }
       }
@@ -172,6 +186,7 @@ router.post('/submitReservation', async (req, res) => {
     res.status(400).send('Error creating passenger: ' + err.message);
   }
 });
+
 
 // Client Search
 router.post('/searchFlight', async (req, res) => {
@@ -500,5 +515,6 @@ router.get('/success', (req, res) => {
 });
 
 module.exports = router;
+
 
 
