@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Flight = require('../models/flight.model');
 const User = require('../models/user.model');
 const Passenger  = require('../models/passenger.model');
-
 // Client Home
 router.get('/home', (req, res) => {
   res.render('client/ClientHome', { 
@@ -73,15 +72,16 @@ router.get('/book', (req, res) => {
 router.post('/register', async (req, res) => {
   const { flightId, passengerCount } = req.body;
   
-  const flight = await Flight.findById(flightId).lean(); 
+  const flight = await Flight.findById(flightId).lean();
 
+  
   const rows = ['A','B','C','D','E','F','G','H','I','J'];
   const seatsByRow = {};
 
   rows.forEach(row => {
     const rowSeats = flight.seats.filter(seat => seat.seatNumber.startsWith(row));
     seatsByRow[row] = {
-      left: rowSeats.slice(0,3),  
+      left: rowSeats.slice(0,3),   
       right: rowSeats.slice(3,6)   
     };
   });
@@ -101,16 +101,32 @@ router.post('/submitReservation', async (req, res) => {
 
     const { fullName, email, passportID, flightNum, meal, baggage, seatSelection } = req.body;
 
+    let errors = {};
+
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passportRegex = /^[A-Z]\d{7}$/i;
+
+ 
+    if (!fullName || fullName.trim() === '') errors.fullName = 'Full name is required';
+    if (!emailRegex.test(email)) errors.email = 'Invalid email address';
+    if (!passportRegex.test(passportID)) errors.passportID = 'Invalid passport number format (e.g., A1234567)';
+
+    if (Object.keys(errors).length > 0) {
+     
+      return res.render('client/ClientRegister', {
+        errors,
+        userInput: { fullName, email, passportID, flightNum, meal, baggage, seatSelection }
+      });
+    }
+
     const user = await User.findById(userId);
     if (!user) return res.status(404).send('User not found');
 
     const flight = await Flight.findOne({ flightNum });
     if (!flight) return res.status(404).send('Flight not found');
 
-    let mealCharge = 0;
-    if (meal !== 'No Meal') {
-      mealCharge = 300;
-    }
+    let mealCharge = meal !== 'No Meal' ? 300 : 0;
 
     let baggageCharge = 0;
     switch (baggage) {
@@ -118,15 +134,12 @@ router.post('/submitReservation', async (req, res) => {
       case '24 kg': baggageCharge = 750; break;
       case '28 kg': baggageCharge = 1000; break;
       case '32 kg': baggageCharge = 1250; break;
-      default: baggageCharge = 0; 
     }
 
     const totalPrice = flight.price + mealCharge + baggageCharge;
-
     const passengerCount = await Passenger.countDocuments();
     const referenceNum = `X${passengerCount + 1}`;
 
-    // Create passenger
     const newPassenger = new Passenger({
       fullName,
       email,
@@ -239,8 +252,10 @@ router.get('/reservations', async (req, res) => {
     const user = await User.findById(userId).lean();
     if (!user) return res.status(404).send('User not found');
 
+    
     const passengers = await Passenger.find({ referenceNum: { $in: user.referenceNums } }).lean();
 
+    
     const reservations = [];
     for (const p of passengers) {
       const flight = await Flight.findOne({ flightNum: p.flightNum }).lean();
@@ -250,7 +265,7 @@ router.get('/reservations', async (req, res) => {
           flightNum: p.flightNum,
           origin: flight.origin,
           destination: flight.destination,
-          departureDate: flight.departureDate, 
+          departureDate: flight.departureDate,
           departureTime: flight.departureTime,
           arrivalDate: flight.arrivalDate, 
           arrivalTime: flight.arrivalTime,
@@ -321,6 +336,7 @@ router.get('/ClientDetails/:referenceNum', async (req, res) => {
 
     const referenceNum = req.params.referenceNum;
 
+    
     const passengers = await Passenger.find({ referenceNum }).lean();
     if (!passengers || passengers.length === 0) {
       return res.status(404).send('No passengers found for this booking');
@@ -329,7 +345,7 @@ router.get('/ClientDetails/:referenceNum', async (req, res) => {
     
     const flightNum = passengers[0].flightNum;
 
-    // Get flight details
+    
     const flight = await Flight.findOne({ flightNum }).lean();
     if (!flight) return res.status(404).send('Flight not found');
 
@@ -366,7 +382,7 @@ router.get('/ClientEditPassenger/:id', async (req, res) => {
         return {
           ...seat,
           checked: seat.seatNumber === passenger.seat,
-          isVacant: seat.isVacant || seat.seatNumber === passenger.seat 
+          isVacant: seat.isVacant || seat.seatNumber === passenger.seat // treat current seat as selectable
         };
       }
       return null;
@@ -400,14 +416,14 @@ router.post('/editPassenger/:passengerId', async (req, res) => {
     const flight = await Flight.findOne({ flightNum: passenger.flightNum });
     if (!flight) return res.status(404).send('Flight not found');
 
-    // Update passenger info
+    
     passenger.fullName = fullName;
     passenger.email = email;
     passenger.passportID = passportID;
     passenger.meal = meal;
     passenger.baggage = baggage;
 
-   
+    
     let mealCharge = 0;
     if (meal !== 'No Meal') mealCharge = 300;
 
@@ -422,12 +438,13 @@ router.post('/editPassenger/:passengerId', async (req, res) => {
 
     passenger.price = flight.price + mealCharge + baggageCharge;
 
-  
+    
     if (passenger.seat !== seatSelection) {
-  
+      
       const prevSeat = flight.seats.find(s => s.seatNumber === passenger.seat);
       if (prevSeat) prevSeat.isVacant = true;
 
+      
       const newSeat = flight.seats.find(s => s.seatNumber === seatSelection);
       if (newSeat) newSeat.isVacant = false;
 
@@ -458,12 +475,14 @@ router.post('/deletePassenger/:passengerId', async (req, res) => {
       }
     );
 
+   
     const user = await User.findOne({ referenceNums: passenger.referenceNum });
     if (user) {
       user.referenceNums = user.referenceNums.filter(ref => ref !== passenger.referenceNum);
       await user.save();
     }
 
+    
     await Passenger.findByIdAndDelete(passenger._id);
 
     res.redirect(`/client/reservations`);
@@ -481,4 +500,5 @@ router.get('/success', (req, res) => {
 });
 
 module.exports = router;
+
 
