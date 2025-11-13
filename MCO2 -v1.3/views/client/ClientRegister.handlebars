@@ -15,22 +15,34 @@
       </tr>
       <tr>
       <td class="px-1">
-        <div class="row"></div>
-        <div class="col-md-6"></div>
         <div class="input-group mb-3">
-          <span class="input-group-text fs-5">Full Name:</span>
-          <input id="fullName" name="fullName" type="text" class="form-control form-control-sm fs-5">                       
-        </div>
-        </td>   
-        <td class="px-1"><div class="input-group mb-3">
-          <span class="input-group-text fs-5">Email Address:</span>
-          <input id="email" name="email" type="email" class="form-control form-control-sm fs-5">
-        </div></td>
-        </tr>
-        <tr>
-        <td class="px-1"><div class="input-group mb-3">
-          <span class="input-group-text fs-5">Passport No.</span>
-          <input id="passportID" name="passportID" type="tel"  class="form-control form-control-sm fs-5">
+        <span class="input-group-text fs-5">Full Name:</span>
+        <input id="fullName" name="fullName" type="text" class="form-control form-control-sm fs-5" value="{{userInput.fullName}}">
+      </div>
+      {{#if errors.fullName}}
+        <div class="text-danger">{{errors.fullName}}</div>
+      {{/if}}
+      </td>
+     <td class="px-1">
+      <div class="input-group mb-3">
+        <span class="input-group-text fs-5">Email Address:</span>
+        <input id="email" name="email" type="email" class="form-control form-control-sm fs-5" value="{{userInput.email}}">
+      </div>
+      {{#if errors.email}}
+        <div class="text-danger">{{errors.email}}</div>
+      {{/if}}
+        </td>
+      </tr>
+      <tr>
+         <td class="px-1">
+      <div class="input-group mb-3">
+        <span class="input-group-text fs-5">Passport No.</span>
+        <input id="passportID" name="passportID" type="tel" class="form-control form-control-sm fs-5" value="{{userInput.passportID}}">
+      </div>
+      {{#if errors.passportID}}
+        <div class="text-danger">{{errors.passportID}}</div>
+      {{/if}}
+      </td>
         </div></td>
         <td class="px-1"><div class="input-group mb-3">
           <span class="input-group-text fs-5">Flight No.</span>
@@ -211,3 +223,4 @@
   });
 </script>
   
+
