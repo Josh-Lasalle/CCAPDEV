@@ -90,9 +90,11 @@ router.post('/add', async (req, res) => {
       price
     });
 
+    let i;
+
     if (!newFlight.seats || newFlight.seats.length === 0) {
       const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-      for (let i = 1; i <= 10; i++) {
+      for (i = 1; i <= 10; i++) {
         for (const row of rows) {
           newFlight.seats.push({ seatNumber: `${row}${i}`, isVacant: true });
         }
@@ -168,7 +170,6 @@ router.post('/edit/:id', async (req, res) => {
 
   let errors = {};
 
-  // validation
   if (!flightNum || flightNum.length !== 5) {
     errors.flightNum = 'Flight number must be exactly 5 characters long.';
   }
