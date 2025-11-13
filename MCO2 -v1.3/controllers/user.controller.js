@@ -205,45 +205,71 @@ router.post('/logout', (req, res) => {
 });
 
 
-// ===== Client Update Route =====
-router.post('/profile/update/:username', (req, res) => {
-  const oldUsername = req.params.username;
-  const { username, email, password, confirmPassword } = req.body;
+// ===== Client Update =====
+router.post('/profile/update', async (req, res) => {
+    const { username, email, password, confirmPassword } = req.body;
+    if (password && password !== confirmPassword) {
+        console.log('Passwords do not match');
+        return res.redirect('/client/profile?error=2');
+    }
+    const updateData = { username, email };
+    if (password) {
+        updateData.password = password; 
+    }
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.session.userId, 
+            updateData, 
+            { new: true, runValidators: true }
+        );
+        if (!updatedUser) {
+          return res.redirect('/client/profile?status=0');
+        }
+        req.session.username = updatedUser.username;
+        res.redirect('/client/profile?status=1');
+    } catch (err) {
+        console.error('Update error (or validation failed):', err);
+        if (err.name === 'ValidationError') {
+            if (err.errors.username) {
+                return res.redirect('/client/profile?error=3');
+            }
+            if (err.errors.password) {
+                return res.redirect('/client/profile?error=4');
+            }
+            if (err.errors.email) {
+                return res.redirect('/client/profile?error=5');
+            }
+        }
+        res.redirect('/client/profile?status=0');
+    }
+});
 
-  if (password && password !== confirmPassword) {
-    console.log('Passwords do not match');
-    return res.redirect(`/client/profile/${oldUsername}?status=0`);
-  }
-
-  const updateData = { username, email };
-  if (password) {
-    updateData.password = password;
-  }
-
-  User.findOneAndUpdate({ username: oldUsername }, updateData, { runValidators: true })
-    .then(user => {
-      if (req.session.username === oldUsername) {
-        req.session.username = username; // update session
-      }
-      res.redirect(`/client/profile/${username}?status=1`);
+// ===== Client Delete =====
+router.post('/profile/delete', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/users/login');
+    }
+    User.findByIdAndDelete(req.session.userId)
+    .then(deletedUser => {
+        if (!deletedUser) {
+            console.log('User not found for deletion:', req.session.userId);
+        }
+        req.session.destroy(err => {
+          if (err) {
+            console.error('logout error:', err);
+          }
+          res.clearCookie('connect.sid');
+          return res.redirect('/');
+        });
     })
     .catch(err => {
-      console.error('Update error (or validation failed):', err);
-      res.redirect(`/client/profile/${oldUsername}?status=0`);
+        console.error(err);
+        res.redirect('/client/profile?status=0');
     });
 });
 
-// ===== Client Delete Route =====
-router.post('/profile/delete/:username', (req, res) => {
-  const username = req.params.username;
-  User.findOneAndDelete({ username })
-    .then(() => res.redirect('/'))
-    .catch(err => {
-      console.error('Delete error', err);
-      res.redirect(`/client/profile/${username}`);
-    });
-});
 
 module.exports = router;
+
 
 
