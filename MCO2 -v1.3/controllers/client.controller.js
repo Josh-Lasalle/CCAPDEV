@@ -272,6 +272,45 @@ router.get('/reservations', async (req, res) => {
   }
 });
 
+// Admin view reservations
+router.get('/reservations/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).lean();
+    if (!user) return res.status(404).send('User not found');
+
+    const passengers = await Passenger.find({ referenceNum: { $in: user.referenceNums } }).lean();
+
+    const reservations = [];
+    for (const p of passengers) {
+      const flight = await Flight.findOne({ flightNum: p.flightNum }).lean();
+      if (flight) {
+        reservations.push({
+          referenceNum: p.referenceNum,
+          flightNum: p.flightNum,
+          origin: flight.origin,
+          destination: flight.destination,
+          departureDate: flight.departureDate,
+          departureTime: flight.departureTime,
+          arrivalDate: flight.arrivalDate,
+          arrivalTime: flight.arrivalTime,
+          seat: p.seat,
+          fullName: p.fullName
+        });
+      }
+    }
+
+    res.render('client/ClientReservations', {
+      title: `${user.username}'s Reservations`,
+      username: user.username,
+      reservations
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
 router.get('/ClientDetails/:referenceNum', async (req, res) => {
   try {
     const userId = req.session.userId;
@@ -442,3 +481,4 @@ router.get('/success', (req, res) => {
 });
 
 module.exports = router;
+
