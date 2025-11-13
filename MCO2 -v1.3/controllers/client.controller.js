@@ -20,9 +20,45 @@ router.get('/search', (req, res) => {
 
 // Client Profile 
 router.get('/profile', (req, res) => {
-  res.render('client/ClientProfile', {
-    title: 'Client Profile Page',
-  });
+  if (!req.session.userId) {
+      return res.redirect('/users/login');
+  }
+  User.findById(req.session.userId).lean()
+    .then(user => {
+      if (!user) {
+        return res.redirect('/users/login');
+      }
+      var successMessage = null;
+      var errorMessage = null;
+      if (req.query.status === '1') {
+        successMessage = 'Profile updated';
+      }
+      if (req.query.status === '0') {
+        errorMessage = 'Update fail';
+      }
+      if (req.query.error === '2') {
+        errorMessage = 'Passwords did not match';
+      }
+      if (req.query.error === '3') {
+        errorMessage = 'Username must be at least 3 characters';
+      }
+      if (req.query.error === '4') {
+        errorMessage = 'Password must be at least 8 characters';
+      }
+      if (req.query.error === '5') {
+        errorMessage = 'Email is invalid';
+      }
+      res.render('client/ClientProfile', {
+        title: 'Client Profile Page',
+        user: user,
+        successMsg: successMessage,
+        errorMsg: errorMessage
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.redirect('/client/home');
+    });
 });
 
 // Client Book
@@ -419,3 +455,4 @@ router.get('/success', (req, res) => {
 });
 
 module.exports = router;
+
