@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(session({
-  secret: 'yourSecretKey',  
+  secret: 'myAirlineDB',  
   resave: false,
   saveUninitialized: false
 }));
