@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Flight = require('../models/flight.model');
 const User = require('../models/user.model');
 const Passenger  = require('../models/passenger.model');
+
 // Client Home
 router.get('/home', (req, res) => {
   res.render('client/ClientHome', { 
@@ -72,17 +73,16 @@ router.get('/book', (req, res) => {
 router.post('/register', async (req, res) => {
   const { flightId, passengerCount } = req.body;
   
-  const flight = await Flight.findById(flightId).lean(); // plain JS object
+  const flight = await Flight.findById(flightId).lean(); 
 
-  // Prepare rows
   const rows = ['A','B','C','D','E','F','G','H','I','J'];
   const seatsByRow = {};
 
   rows.forEach(row => {
     const rowSeats = flight.seats.filter(seat => seat.seatNumber.startsWith(row));
     seatsByRow[row] = {
-      left: rowSeats.slice(0,3),   // seats 1-3
-      right: rowSeats.slice(3,6)   // seats 4-6
+      left: rowSeats.slice(0,3),  
+      right: rowSeats.slice(3,6)   
     };
   });
 
@@ -96,7 +96,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/submitReservation', async (req, res) => {
   try {
-    const userId = req.session.userId; // get user from session
+    const userId = req.session.userId; 
     if (!userId) return res.status(401).send('User not logged in');
 
     const { fullName, email, passportID, flightNum, meal, baggage, seatSelection } = req.body;
@@ -104,30 +104,25 @@ router.post('/submitReservation', async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).send('User not found');
 
-    // Fetch flight to get base price
     const flight = await Flight.findOne({ flightNum });
     if (!flight) return res.status(404).send('Flight not found');
 
-    // Compute meal charge
     let mealCharge = 0;
     if (meal !== 'No Meal') {
       mealCharge = 300;
     }
 
-    // Compute baggage charge
     let baggageCharge = 0;
     switch (baggage) {
       case '20 kg': baggageCharge = 500; break;
       case '24 kg': baggageCharge = 750; break;
       case '28 kg': baggageCharge = 1000; break;
       case '32 kg': baggageCharge = 1250; break;
-      default: baggageCharge = 0; // No Baggage
+      default: baggageCharge = 0; 
     }
 
-    // Total price
     const totalPrice = flight.price + mealCharge + baggageCharge;
 
-    // Generate unique reference number
     const passengerCount = await Passenger.countDocuments();
     const referenceNum = `X${passengerCount + 1}`;
 
@@ -145,12 +140,10 @@ router.post('/submitReservation', async (req, res) => {
     });
     await newPassenger.save();
 
-    // Add reference number to user
     if (!user.referenceNums) user.referenceNums = [];
     user.referenceNums.push(referenceNum);
     await user.save();
 
-    // Mark seat as occupied and increment passenger count
     await Flight.updateOne(
       { flightNum, 'seats.seatNumber': seatSelection },
       { 
@@ -246,10 +239,8 @@ router.get('/reservations', async (req, res) => {
     const user = await User.findById(userId).lean();
     if (!user) return res.status(404).send('User not found');
 
-    // Get all passengers booked by this user
     const passengers = await Passenger.find({ referenceNum: { $in: user.referenceNums } }).lean();
 
-    // Prepare reservation data with flight info
     const reservations = [];
     for (const p of passengers) {
       const flight = await Flight.findOne({ flightNum: p.flightNum }).lean();
@@ -259,9 +250,9 @@ router.get('/reservations', async (req, res) => {
           flightNum: p.flightNum,
           origin: flight.origin,
           destination: flight.destination,
-          departureDate: flight.departureDate, // Pass as-is
+          departureDate: flight.departureDate, 
           departureTime: flight.departureTime,
-          arrivalDate: flight.arrivalDate, // Pass as-is
+          arrivalDate: flight.arrivalDate, 
           arrivalTime: flight.arrivalTime,
           seat: p.seat,
           fullName: p.fullName
@@ -291,7 +282,6 @@ router.get('/ClientDetails/:referenceNum', async (req, res) => {
 
     const referenceNum = req.params.referenceNum;
 
-    // Find all passengers with this reference number
     const passengers = await Passenger.find({ referenceNum }).lean();
     if (!passengers || passengers.length === 0) {
       return res.status(404).send('No passengers found for this booking');
@@ -325,7 +315,7 @@ router.get('/ClientEditPassenger/:id', async (req, res) => {
     const flight = await Flight.findOne({ flightNum: passenger.flightNum }).lean();
     if (!flight) return res.status(404).send('Flight not found');
 
-    // Prepare seatsByRow structure
+   
     const rows = ['A','B','C','D','E','F','G','H','I','J'];
     const seatsByRow = {};
 
@@ -333,11 +323,11 @@ router.get('/ClientEditPassenger/:id', async (req, res) => {
   const rowSeats = flight.seats
     .map(seat => {
       if (seat.seatNumber.startsWith(row)) {
-        // Mark the passenger's current seat as checked
+        
         return {
           ...seat,
           checked: seat.seatNumber === passenger.seat,
-          isVacant: seat.isVacant || seat.seatNumber === passenger.seat // treat current seat as selectable
+          isVacant: seat.isVacant || seat.seatNumber === passenger.seat 
         };
       }
       return null;
@@ -378,7 +368,7 @@ router.post('/editPassenger/:passengerId', async (req, res) => {
     passenger.meal = meal;
     passenger.baggage = baggage;
 
-    // Recalculate price using same logic as add
+   
     let mealCharge = 0;
     if (meal !== 'No Meal') mealCharge = 300;
 
@@ -393,13 +383,12 @@ router.post('/editPassenger/:passengerId', async (req, res) => {
 
     passenger.price = flight.price + mealCharge + baggageCharge;
 
-    // Update seat if changed
+  
     if (passenger.seat !== seatSelection) {
-      // Free previous seat
+  
       const prevSeat = flight.seats.find(s => s.seatNumber === passenger.seat);
       if (prevSeat) prevSeat.isVacant = true;
 
-      // Occupy new seat
       const newSeat = flight.seats.find(s => s.seatNumber === seatSelection);
       if (newSeat) newSeat.isVacant = false;
 
@@ -421,7 +410,7 @@ router.post('/deletePassenger/:passengerId', async (req, res) => {
     const passenger = await Passenger.findById(req.params.passengerId);
     if (!passenger) return res.status(404).send('Passenger not found');
 
-    // Free the seat and decrement passengerCount in the flight
+    
     await Flight.updateOne(
       { flightNum: passenger.flightNum, 'seats.seatNumber': passenger.seat },
       {
@@ -430,14 +419,12 @@ router.post('/deletePassenger/:passengerId', async (req, res) => {
       }
     );
 
-    // Remove reference number from user
     const user = await User.findOne({ referenceNums: passenger.referenceNum });
     if (user) {
       user.referenceNums = user.referenceNums.filter(ref => ref !== passenger.referenceNum);
       await user.save();
     }
 
-    // Delete passenger document
     await Passenger.findByIdAndDelete(passenger._id);
 
     res.redirect(`/client/reservations`);
@@ -455,4 +442,3 @@ router.get('/success', (req, res) => {
 });
 
 module.exports = router;
-
