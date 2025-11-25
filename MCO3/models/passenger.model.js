@@ -42,6 +42,11 @@ const PassengerSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Reference number is required'],
   },
+  checkedIn: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 module.exports = mongoose.model('Passenger', PassengerSchema);
+
