@@ -9,6 +9,7 @@ const flightRoutes = require('./controllers/flight.controller');
 const userRoutes = require('./controllers/user.controller');
 const adminRoutes = require('./controllers/admin.controller');
 const clientRoutes = require('./controllers/client.controller');
+const apiRoutes = require('./controllers/api.controller');
 const path = require('path');
 
 const app = express();
@@ -57,7 +58,7 @@ app.use('/client', clientRoutes);
 app.use('/admin', adminRoutes);
 app.use('/flights', flightRoutes);
 app.use('/users', userRoutes);
-
+app.use('/api', apiRoutes);
 
 // ===== 5⃣ START SERVER =====
 app.listen(PORT, () => {
