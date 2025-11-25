@@ -6,8 +6,6 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const { engine } = require('express-handlebars');
 const flightRoutes = require('./controllers/flight.controller');
-const passengerRoutes = require('./controllers/passenger.controller');
-const seatRoutes = require('./controllers/seat.controller');
 const userRoutes = require('./controllers/user.controller');
 const adminRoutes = require('./controllers/admin.controller');
 const clientRoutes = require('./controllers/client.controller');
@@ -58,8 +56,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/client', clientRoutes);
 app.use('/admin', adminRoutes);
 app.use('/flights', flightRoutes);
-app.use('/passengers', passengerRoutes);
-app.use('/seats', seatRoutes);
 app.use('/users', userRoutes);
 
 
