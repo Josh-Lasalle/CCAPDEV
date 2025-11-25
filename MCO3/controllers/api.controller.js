@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const Passenger = require('../models/Passenger');
+const User = require('../models/user.model');
+const Passenger = require('../models/passenger.model');
 
 // POST /api/checkin
 router.post('/checkin', async (req, res) => {
