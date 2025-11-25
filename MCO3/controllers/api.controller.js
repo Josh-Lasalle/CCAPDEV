@@ -14,7 +14,7 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
-  // Check user credentials
+
   const user = await User.findOne({ username, password });
   if (!user) {
     return res.status(401).json({
@@ -23,7 +23,7 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
-  // Check if user owns the reference number
+
   if (!user.referenceNums.includes(referenceNum)) {
     return res.status(403).json({
       status: 'error',
@@ -31,7 +31,7 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
-  // Find the passenger
+
   const passenger = await Passenger.findOne({ referenceNum });
   if (!passenger) {
     return res.status(404).json({
@@ -47,7 +47,7 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
-  // Check-in
+  
   passenger.checkedIn = true;
   await passenger.save();
 
