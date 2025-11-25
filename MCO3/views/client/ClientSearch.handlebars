@@ -1,0 +1,89 @@
+<div class="pt-5 px-5">
+<div class="card">
+  <h5 class="card-header fs-3">Search Flights</h5>
+  <div class="card-body">
+    
+    <form class="row needs-validation" action="/client/searchFlight" method="POST" novalidate>
+      <div class="col-md-5 position-relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text fs-5">Select an origin</span>
+          <select id="origin" name="origin" class="form-select form-select-sm fs-5" required>
+            <option selected value=""> -- Choose Country -- </option>
+            <option value="Manila"> Manila (MNL) </option>
+            <option value="Beijing"> Beijing (BJS) </option>
+            <option value="Rome"> Rome (ROM) </option>
+            <option value="San Francisco"> San Francisco (SFO) </option>
+            <option value="seoul"> Seoul (SEL) </option>
+          </select>
+        </div>   
+      </div>
+
+      <div class="col-md-5 position-relative">
+        <div class="input-group mb-3">    
+          <span class="input-group-text fs-5">Select a destination</span>
+            <select id="destination" name="destination" class="form-select form-select-sm fs-5" required>
+              <option selected value=""> -- Choose Country -- </option>
+              <option value="Manila"> Manila (MNL) </option>
+              <option value="Beijing"> Beijing (BJS) </option>
+              <option value="Rome"> Rome (ROM) </option>
+              <option value="San Francisco"> San Francisco (SFO) </option>
+              <option value="Seoul"> Seoul (SEL) </option>
+            </select>
+        </div>   
+      </div>  
+          
+      <div class="col-md-3 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text fs-5">Select a departure date</span>
+          <input type="date" name="departure" id="departureDate" class="form-control fs-5" required/>
+        </div>
+      </div>
+        
+      <div class="col-md-2 position relative">
+        <div class="input-group mb-3">
+          <span class="input-group-text fs-5">Passenger Count</span>
+            <input type="number" min="1" max="9" id="passengerCount" name="passengerCount" class="form-control fs-5" required/>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <input type="submit" class="btn btn-secondary" />
+      </div>
+      </form>
+
+      <div id="flightResults" class="mt-4">
+        {{#if errorMessage}}
+          <div class="alert alert-danger">{{errorMessage}}</div>
+        {{/if}}
+
+        {{#if message}}
+          <div class="alert alert-info">{{message}}</div>
+        {{/if}}
+
+        {{#if flights.length}}
+          <h4 class="fs-3">Available Flights</h4>
+          <hr>
+          <div class="list-group">
+            {{#each flights}}
+              <div class="list-group-item list-group-item-action mb-2">
+                <h5 class="text-success-emphasis fs-4">{{airline}} - {{flightNum}}</h5>
+                <p class="fs-5">
+                  Origin: {{origin}} <br>
+                  Destination: {{destination}} <br>
+                  Departure Date: {{departureDate}} <br>
+                  Time: {{departureTime}} <br>
+                  Seats : {{passengerCount}}/{{seatCap}} <br>
+                  Price: PHP{{price}}
+                </p>
+              </div>
+            {{/each}}
+          </div>
+        {{/if}}
+      </div>
+    
+  </div>
+</div>
+</div>
+
+
+

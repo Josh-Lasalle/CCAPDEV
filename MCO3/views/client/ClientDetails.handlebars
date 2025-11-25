@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+
+      <div class="card">
+        <div class="card-body">
+
+          <h1 class="display-6 fw-bold text-center my-4">Reservation and Passenger Details</h1>
+
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Flight Information</h5>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Booking Reference: {{referenceNum}}</h3>
+              <hr>
+              <p class="card-text">Flight No: {{flight.flightNum}}</p>
+              <p class="card-text">Airline: {{flight.airline}}</p>
+              <p class="card-text">Aircraft: {{flight.aircraftType}}</p>
+              <p class="card-text">Origin: {{flight.origin}}</p>
+              <p class="card-text">Destination: {{flight.destination}}</p>
+              <p class="card-text">Departure: {{flight.departureDate}} at {{flight.departureTime}}</p>
+              <p class="card-text">Arrival: {{flight.arrivalDate}} at {{flight.arrivalTime}}</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Passenger Details</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              {{#each passengers}}
+                <li class="list-group-item">
+                  <h6 class="mb-1">{{fullName}}</h6>
+                  <p class="mb-1">Passport ID: {{passportID}}</p>
+                  <p class="mb-1">Seat: {{seat}}</p>
+                  <p class="mb-1">Meal: {{meal}}</p>
+                  <p class="mb-0">Baggage: {{baggage}} </p>
+                 <div class="d-flex gap-2">
+                <a href="/client/ClientEditPassenger/{{this._id}}" class="btn btn-sm btn-outline-success">Edit</a>
+                <form action="/client/deletePassenger/{{this._id}}" method="POST" class="m-0">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+                </div>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+
+          <div class="text-center mt-4">
+            <a href="/client/reservations" class="btn btn-secondary">Back to My Reservations</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
