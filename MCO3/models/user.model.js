@@ -32,18 +32,16 @@ const UserSchema = new mongoose.Schema({
 });
 
 //----------------------------------------------------ADDED
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function() {
     const user = this;
-    if (!user.isModified('password')) return next();
+    if (!user.isModified('password')) return;
 
     try {
         const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
         const hash = await bcrypt.hash(user.password, salt);
         user.password = hash;
-        next();
     } catch (err) {
-        console.error(err);
-        return next(err);
+        throw new Error(err);
     }
 });
 
