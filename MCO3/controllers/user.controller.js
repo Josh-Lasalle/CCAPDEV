@@ -163,7 +163,7 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ username }).lean();
+    const user = await User.findOne({ username }); //---- Removed leanto use helper
     if (!user) {
       return res.render('users/login', {
         layout: 'LoginMain',
@@ -171,8 +171,8 @@ router.post('/login', async (req, res) => {
         user: { username }
       });
     }
-
-    if (user.password !== password) {
+    const password = await user.comparePassword(password); //Used secure comp from usermodel
+    if (!password) {
       return res.render('users/login', {
         layout: 'LoginMain',
         errors: { password: 'Incorrect password' },
@@ -185,6 +185,17 @@ router.post('/login', async (req, res) => {
     req.session.username = user.username;
     req.session.role = user.role;
 
+    //---------------ADDED
+    req.session.save((err) => {
+      if (err) console.error(err);
+        
+      if (user.role === 'Admin') {
+          res.redirect('/admin/home');
+      } else {
+          res.redirect(`/client/home`);
+      }
+  });
+    //-----------------
     // ===== REDIRECT =====
     if (user.role === 'Admin') {
       res.redirect('/admin/home');
@@ -256,6 +267,7 @@ router.post('/profile/update', async (req, res) => {
 
 
 module.exports = router;
+
 
 
 
