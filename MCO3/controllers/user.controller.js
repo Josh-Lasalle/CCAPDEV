@@ -171,8 +171,8 @@ router.post('/login', async (req, res) => {
         user: { username }
       });
     }
-    const password = await user.comparePassword(password); //Used secure comp from usermodel
-    if (!password) {
+    const match = await user.comparePassword(password); //Used secure comp from usermodel
+    if (!match) {
       return res.render('users/login', {
         layout: 'LoginMain',
         errors: { password: 'Incorrect password' },
@@ -270,6 +270,7 @@ router.post('/profile/update', async (req, res) => {
 
 
 module.exports = router;
+
 
 
 
