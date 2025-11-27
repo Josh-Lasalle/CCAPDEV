@@ -11,6 +11,7 @@ const adminRoutes = require('./controllers/admin.controller');
 const clientRoutes = require('./controllers/client.controller');
 const apiRoutes = require('./controllers/api.controller');
 const path = require('path');
+const fs = require('fs'); //File system mod
 
 const app = express();
 const PORT = 3000;
@@ -31,6 +32,17 @@ app.set('views', './views');
 // ===== 3⃣ MIDDLEWARE =====
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+//------------log
+app.use((req, res, next) => {
+    const message = new Date() + " | " + req.method + " " + req.url + "\n\n";
+    console.log(message);
+    fs.appendFile('sys.log', message, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+    next();
+});
 
 app.use(session({
   secret: 'myAirlineDB',  
