@@ -17,7 +17,6 @@ afterAll(async () => {
     await mongoose.connection.close();
 });
 
-// Creation of Test Users
 describe('Create test users', () => {
     it('Should register client users', async () => {
         const res = await agent
@@ -39,14 +38,13 @@ describe('Create test users', () => {
                 password: '12345678',
                 email: 'testAdmin@gmail.com',
                 role: 'Admin'
-            })
+            });
         expect(res.statusCode).toBe(302)
         expect(res.headers.location).toBe('/users');
     });
 
 });
 
-// Login 
 describe('Login', () => {
     test('Client user should login and be redirected to Client Page', async () => {
 
@@ -54,7 +52,7 @@ describe('Login', () => {
 
         const res = await agent 
         .post('/users/login')
-        .send({username: clientUser.username, password: clientUser.password});
+        .send({username: clientUser.username, password: '12345678'});
 
         expect(res.statusCode).toBe(302); 
         expect(res.headers.location).toBe('/client/home'); 
@@ -66,21 +64,20 @@ describe('Login', () => {
 
         const res = await agent 
         .post('/users/login')
-        .send({username: AdminUser.username, password: AdminUser.password});
+        .send({username: AdminUser.username, password: '12345678'});
 
         expect(res.statusCode).toBe(302); 
         expect(res.headers.location).toBe('/admin/home'); 
     });
 });
 
-// Test editing client profile
 describe('Client Profile Update', () => {
 
     beforeAll(async () => {
         const clientUser = await User.findOne({username: 'testClient'});
         const res = await agent
             .post('/users/login')
-            .send({username: clientUser.username, password: clientUser.password});
+            .send({username: clientUser.username, password: '12345678'});
 
         expect(res.statusCode).toBe(302); 
         expect(res.headers.location).toBe('/client/home'); 
@@ -131,29 +128,54 @@ describe('Client Profile Update', () => {
 
 });
 
-// Test Booking
-describe('Client Booking', () => {
-    let flight;
+describe('Flight Creation', () => {
 
     beforeAll(async () => {
-        flight = await Flight.create({
-            flightNum: "BB101",
-            airline: "Bing Bong Airlines",
-            aircraftType: "Bing Bong Air Carrier",
-            origin: "Manila",
-            destination: "Beijing",
-            departureDate: new Date("2025-12-10"),
-            departureTime: "10:00 AM",
-            arrivalDate: new Date("2025-12-11"),
-            arrivalTime: "11:30 AM",
-            passengerCount: 0,
-            seatCap: 60,
-            price: 2500
-        });
+        const adminUser = await User.findOne({username: 'testAdmin'});
+        const res = await agent
+            .post('/users/login')
+            .send({username: adminUser.username, password: '12345678'});
+
+        expect(res.statusCode).toBe(302); 
+        expect(res.headers.location).toBe('/admin/home'); 
     });
 
-    test('Client can render book flight', async () => {
+    test('Admin should be able to create flights', async () => {
 
+        const flightData =  {
+            flightNum: 'BB123',
+            airline: 'Bing Bong Airlines',
+            aircraftType: 'Bing Bong Carrier',
+            origin: 'Manila',
+            destination: 'Beijing',
+            departureDate: '2025-12-30',
+            departureTime: '08:00',
+            arrivalDate: '2025-12-30',
+            arrivalTime: '10:00',
+            seatCap: 60,
+            price: 2500,
+        };
+
+        const res = await agent
+            .post('/flights/add')
+            .send(flightData);
+        
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe('/flights');
+
+        const flightCheck = await Flight.findOne({flightNum: 'BB123'});
+        expect(flightCheck).not.toBeNull();
+
+    });
+
+});
+
+
+// Test Booking
+describe('Client Booking', () => {
+
+    test('Client can render book flight', async () => {
+        const flight = await Flight.findOne({flightNum: 'BB123'});
         const res = await agent
             .post('/client/bookFlight')
             .send({
@@ -169,7 +191,7 @@ describe('Client Booking', () => {
         
     
     test('Client can register to a flight', async () => {
-
+        const flight = await Flight.findOne({flightNum: 'BB123'});
         const res = await agent
             .post('/client/register')
             .send({
@@ -183,6 +205,7 @@ describe('Client Booking', () => {
     });
 
     test('Client can submit reservation', async () => {
+        const flight = await Flight.findOne({flightNum: 'BB123'});
         const clientUser = await User.findOne({username: 'testClient'});
 
         const res = await agent
@@ -204,10 +227,9 @@ describe('Client Booking', () => {
     });
 
     afterAll(async () => {
+        const flight = await Flight.findOne({flightNum: 'BB123'});
         await Flight.deleteOne({ _id: flight._id });
         await Passenger.deleteOne({ flightNum: flight.flightNum });
     });
     
 });
-
-//test API check-in
