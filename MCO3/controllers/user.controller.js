@@ -185,6 +185,7 @@ router.post('/login', async (req, res) => {
     req.session.username = user.username;
     req.session.role = user.role;
 
+    // ===== REDIRECT =====
     //---------------ADDED
     req.session.save((err) => {
       if (err) console.error(err);
@@ -196,13 +197,6 @@ router.post('/login', async (req, res) => {
       }
   });
     //-----------------
-    // ===== REDIRECT =====
-    if (user.role === 'Admin') {
-      res.redirect('/admin/home');
-    } else {
-      res.redirect(`/client/home`);
-    }
-
   } catch (err) {
     console.error('Login error:', err);
     res.render('users/login', {
@@ -237,15 +231,24 @@ router.post('/profile/update', async (req, res) => {
         updateData.password = password; 
     }
     try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.session.userId, 
-            updateData, 
-            { new: true} //runValidators: true }
+        const user = await User.findById(req.session.userId);
+        //    req.session.userId, 
+        //    updateData, 
+        //    { new: true} //runValidators: true }
         );
-        if (!updatedUser) {
+        if (!user) {
           return res.redirect('/client/profile?status=0');
         }
-        req.session.username = updatedUser.username;
+        user.username = username; //added
+        user.email = email;//added
+
+        if (password) {
+            user.password = password; 
+        }
+
+        await user.save(); //make sure hash locks
+      
+        req.session.username = user.username;
         res.redirect('/client/profile?status=1');
     } catch (err) {
         console.error('Update error (or validation failed):', err);
@@ -267,6 +270,7 @@ router.post('/profile/update', async (req, res) => {
 
 
 module.exports = router;
+
 
 
 
