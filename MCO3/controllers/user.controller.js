@@ -112,9 +112,18 @@ router.get('/edit/:id', async (req, res) => {
 router.post('/edit/:id', async (req, res) => {
   const { username, password, email, role } = req.body;
 
-  try {
-    await User.findByIdAndUpdate(req.params.id, { username, password, email, role });
+   try {
+    //---------------ADDED OR MODIFICATION FOR SECURITY
+    const user = await User.findById(req.params.id);
+    user.username = username;
+    user.email = email;
+    user.role = role;
+    if (password && password.trim() !== "") {
+        user.password = password;
+    }
+    await user.save(); 
     res.redirect('/users');
+     //--------------------
   } catch (err) {
     let errors = {};
 
@@ -247,6 +256,7 @@ router.post('/profile/update', async (req, res) => {
 
 
 module.exports = router;
+
 
 
 
