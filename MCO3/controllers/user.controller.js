@@ -235,7 +235,6 @@ router.post('/profile/update', async (req, res) => {
         //    req.session.userId, 
         //    updateData, 
         //    { new: true} //runValidators: true }
-        );
         if (!user) {
           return res.redirect('/client/profile?status=0');
         }
@@ -270,7 +269,6 @@ router.post('/profile/update', async (req, res) => {
 
 
 module.exports = router;
-
 
 
 
