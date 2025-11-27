@@ -14,8 +14,8 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
-
-  const user = await User.findOne({ username, password });
+  
+  const user = await User.findOne({ username });
   if (!user) {
     return res.status(401).json({
       status: 'error',
@@ -23,7 +23,16 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
+  
+  const match = await user.comparePassword(password);
+  if (!match) {
+    return res.status(401).json({
+      status: 'error',
+      message: 'Invalid username or password'
+    });
+  }
 
+  
   if (!user.referenceNums.includes(referenceNum)) {
     return res.status(403).json({
       status: 'error',
@@ -31,7 +40,7 @@ router.post('/checkin', async (req, res) => {
     });
   }
 
-
+  
   const passenger = await Passenger.findOne({ referenceNum });
   if (!passenger) {
     return res.status(404).json({
@@ -42,7 +51,7 @@ router.post('/checkin', async (req, res) => {
 
   if (passenger.checkedIn) {
     return res.json({
-      status: 'success',
+      status: 'error',
       message: 'Passenger is already checked in'
     });
   }
@@ -59,3 +68,4 @@ router.post('/checkin', async (req, res) => {
 });
 
 module.exports = router;
+
