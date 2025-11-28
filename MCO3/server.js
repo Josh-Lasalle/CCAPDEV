@@ -33,8 +33,15 @@ app.set('views', './views');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //------------log
+app.use(session({
+  secret: 'myAirlineDB',  
+  resave: false,
+  saveUninitialized: false
+}));
+
 app.use((req, res, next) => {
-    const message = new Date() + " | " + req.method + " " + req.url + "\n\n";
+    const user = req.session.username || "NoUserLogged";
+    const message = new Date() + " | User: " + user + " | " + req.method + " " + req.url + "\n";
     console.log(message);
     fs.appendFile('sys.log', message, (err) => {
         if (err) {
@@ -43,12 +50,6 @@ app.use((req, res, next) => {
     });
     next();
 });
-
-app.use(session({
-  secret: 'myAirlineDB',  
-  resave: false,
-  saveUninitialized: false
-}));
 
 app.use((req, res, next) => {
   const username = req.session?.username ?? null;
