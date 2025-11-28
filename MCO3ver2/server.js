@@ -12,16 +12,35 @@ const clientRoutes = require('./controllers/client.controller');
 const apiRoutes = require('./controllers/api.controller');
 const path = require('path');
 const fs = require('fs'); //File system mod
+const User = require('./models/user.model');
 
 const app = express();
 const PORT = 3000;
 
-// ===== 1⃣ CONNECT TO MONGODB =====
+// MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/airlinedb')
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// ===== 2⃣ CONFIGURE HANDLEBARS =====
+// Create admin account
+User.findOne({ role: 'Admin' })
+  .then(async (admin) => {
+    if (!admin) {
+    
+      const newAdmin = new User({
+        username: 'admin',
+        password: 'admin123',
+        email: 'admin@gmail.com',
+        role: 'Admin'
+      });
+
+      await newAdmin.save();
+    }
+  })
+  .catch(err => console.error("Admin check error:", err));
+
+
+// Handlebars
 app.engine('handlebars', engine({
   defaultLayout: 'main'
 }));
@@ -29,7 +48,7 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-// ===== 3⃣ MIDDLEWARE =====
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //------------log
@@ -63,7 +82,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ===== 4⃣ ROUTES =====
+// Routes
 app.get('/', (req, res) => {
   res.render('users/login', {layout: 'LoginMain'});
 });
@@ -76,7 +95,7 @@ app.use('/flights', flightRoutes);
 app.use('/users', userRoutes);
 app.use('/api', apiRoutes);
 
-// ===== 5⃣ START SERVER =====
+// start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
