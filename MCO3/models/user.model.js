@@ -41,7 +41,7 @@ UserSchema.pre('save', async function() {
         const hash = await bcrypt.hash(user.password, salt);
         user.password = hash;
     } catch (err) {
-        throw new Error(err);
+        console.error(err)
     }
 });
 
@@ -51,4 +51,5 @@ UserSchema.methods.comparePassword = async function(candidatePassword) {
 
 
 module.exports = mongoose.model('User', UserSchema);
+
 
