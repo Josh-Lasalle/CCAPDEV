@@ -20,7 +20,9 @@ afterAll(async () => {
     await mongoose.connection.close();
 });
 
-describe('Create test users', () => {
+
+describe('Login', () => {
+    
     it('Should register client users', async () => {
         const res = await client.post('/users/register').send({
                 username: 'testClient',
@@ -35,9 +37,6 @@ describe('Create test users', () => {
         expect(clientCheck).not.toBeNull();
     });
 
-});
-
-describe('Login', () => {
     test('Client user should login and be redirected to Client Page', async () => {
 
         const clientUser = await User.findOne({username: 'testClient'});
@@ -224,8 +223,6 @@ describe('Client Booking', () => {
         expect(res.headers.location).toBe('/client/success');
 
     });
-
-    // client can delete booking reservation
 
     afterAll(async () => {
         const flight = await Flight.findOne({flightNum: 'BB123'});
