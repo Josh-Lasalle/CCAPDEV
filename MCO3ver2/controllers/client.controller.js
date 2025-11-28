@@ -4,10 +4,9 @@ const mongoose = require('mongoose');
 const Flight = require('../models/flight.model');
 const User = require('../models/user.model');
 const Passenger  = require('../models/passenger.model');
-const { isAuthenticated, isClient } = require('../middleware/auth.middleware');
+const {isAuthenticated} = require('../middleware/auth.middleware');
 
-router.use(isAuthenticated); 
-router.use(isClient);        
+router.use(isAuthenticated);       
 
 // Client Home
 router.get('/home', (req, res) => {
