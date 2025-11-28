@@ -1,0 +1,11 @@
+List of commands to do:
+npm init -y
+npm install express express-session nodemon express-handlebars mongoose bcrypt jest supertest
+
+NOTE:
+Add the following section to your package.json:
+{
+  "scripts": {
+    "test": "jest" (this)
+  }
+}
