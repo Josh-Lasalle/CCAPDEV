@@ -41,15 +41,16 @@ app.use(session({
 
 app.use((req, res, next) => {
     const user = req.session.username || "NoUserLogged";
-    const message = new Date() + " | User: " + user + " | " + req.method + " " + req.url + "\n";
-    console.log(message);
-    fs.appendFile('sys.log', message, (err) => {
-        if (err) {
-            console.log(err);
-        }
-    });
+    const role = req.session.role || "NoRole";
+      if (!req.url.startsWith('/images') && !req.url.startsWith('/style.css')) { //filters what http req gets to be stored and logged
+        const message = new Date() + " | TRAFFIC | User: " + user + " | Role: " + role + " | " + req.method + " " + req.url + "\n";
+        fs.appendFile('sys.log', message, (err) => {
+            if (err) console.log(err);
+        });
+    }
     next();
 });
+//------------log
 
 app.use((req, res, next) => {
   const username = req.session?.username ?? null;
