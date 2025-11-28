@@ -1,0 +1,205 @@
+<div class="container my-2">
+    <div class="row">
+      <div class="col-ld-6">
+        <div class="card mt-5 shadow">
+          <div class="card-body">
+            <h1 class="dispaly-6 fw-bold text-center my-4">
+              Reservation Form
+            </h1>
+            <div class="row">
+              <div class="col-md-12">
+                <form id="reservationForm" action="/client/submitReservation" method="POST" data-flight-price="{{flight.price}}">
+    <table id="userInfoTable" class="w-100">
+      <tr>
+        <td colspan="2"><h5 class="fs-4">User Information</h5></td>
+      </tr>
+      <tr>
+      <td class="px-1">
+        <div class="input-group mb-3">
+        <span class="input-group-text fs-5">Full Name:</span>
+        <input id="fullName" name="fullName" type="text" class="form-control form-control-sm fs-5" value="{{userInput.fullName}}">
+      </div>
+      {{#if errors.fullName}}
+        <div class="text-danger">{{errors.fullName}}</div>
+      {{/if}}
+      </td>
+     <td class="px-1">
+      <div class="input-group mb-3">
+        <span class="input-group-text fs-5">Email Address:</span>
+        <input id="email" name="email" type="email" class="form-control form-control-sm fs-5" value="{{userInput.email}}">
+      </div>
+      {{#if errors.email}}
+        <div class="text-danger">{{errors.email}}</div>
+      {{/if}}
+        </td>
+      </tr>
+      <tr>
+         <td class="px-1">
+      <div class="input-group mb-3">
+        <span class="input-group-text fs-5">Passport No.</span>
+        <input id="passportID" name="passportID" type="tel" class="form-control form-control-sm fs-5" value="{{userInput.passportID}}">
+      </div>
+      {{#if errors.passportID}}
+        <div class="text-danger">{{errors.passportID}}</div>
+      {{/if}}
+      </td>
+        </div></td>
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Flight No.</span>
+          <input id="flightNum" name="flightNum" type="text" value="{{flight.flightNum}}" readonly class="form-control form-control-sm fs-5">                       
+        </div></td>   
+        </tr>
+        </table>
+        <table id="packageSelectionTable" class="w-100">
+        <tr>
+        <td colspan="2" class="px-1"><h5 class="fs-4">Package Selection</h5></td>
+        </tr>
+        <tr>
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Meal Option:</span>
+            <select class="form-select fs-5" aria-label="meal" id="meal" name="meal">
+              <option value="No Meal" selected>No Meal</option>
+              <option value="Standard">Standard (+300 PHP) </option>
+              <option value="Vegetarian">Vegetarian (+300 PHP) </option>
+              <option value="Kosher">Kosher (+300 PHP) </option>
+              </select>
+            </div></td> 
+        <td class="px-1"><div class="input-group mb-3">
+          <span class="input-group-text fs-5">Baggage:</span>
+            <select class="form-select fs-5" aria-label="baggage" id="baggage" name="baggage">
+              <option value="No Baggage" selected>No Baggage</option>
+              <option value="20 kg">20 kg (+500 PHP) </option>
+              <option value="24 kg">24 kg (+750 PHP) </option>
+              <option value="28 kg">28 kg (+1000 PHP) </option>
+              <option value="32 kg">32 kg (+1250 PHP) </option>
+            </select>
+        </tr>
+                
+
+        </table>
+          <div class="container text-center mt-4">
+          <h3>Seat Selection</h3>
+          <div id="planeBox" class="d-inline-block mt-3">
+
+    <div class="row justify-content-center mb-2">
+
+      
+      {{#each flight.seats}}
+        <input type="radio" 
+               class="btn-check" 
+               name="seatSelection" 
+               id="seat-{{this.seatNumber}}"
+               value="{{this.seatNumber}}"  
+               {{#unless this.isVacant}}disabled{{/unless}}>
+        <label class="btn {{#if this.isVacant}}btn-outline-success{{else}}btn-outline-danger{{/if}}" 
+               for="seat-{{this.seatNumber}}" 
+               style="width:60px; height:40px;">
+          {{this.seatNumber}}
+        </label>
+      {{/each}}
+
+
+
+</div>
+                
+  <div id="submitButtonReservationDiv">
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+    Submit
+  </button>
+</div>
+  </div>
+  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirm Reservation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>
+        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+        <p><strong>Passport ID:</strong> <span id="modalPassport"></span></p>
+        <p><strong>Flight Number:</strong> <span id="modalFlight"></span></p>
+        <p><strong>Seat:</strong> <span id="modalSeat"></span></p>
+        <p><strong>Meal:</strong> <span id="modalMeal"></span></p>
+        <p><strong>Baggage:</strong> <span id="modalBaggage"></span></p>
+        <hr>
+        <p><strong>Price Breakdown:</strong></p>
+        <ul>
+          <li>Flight Price: PHP <span id="modalFlightPrice"></span></li>
+          <li>Meal Charge: PHP <span id="modalMealPrice"></span></li>
+          <li>Baggage Charge: PHP <span id="modalBaggagePrice"></span></li>
+        </ul>
+        <p><strong>Total Price: PHP <span id="modalTotalPrice"></span></strong></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="confirmSubmit" class="btn btn-primary">Book</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('reservationForm');
+  const confirmBtn = document.getElementById('confirmSubmit');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+  });
+
+  document.querySelector('[data-bs-toggle="modal"]').addEventListener('click', function() {
+    
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const passportID = document.getElementById('passportID').value;
+    const flightNum = document.getElementById('flightNum').value;
+    const meal = document.getElementById('meal').value;
+    const baggage = document.getElementById('baggage').value;
+    const seatSelection = document.querySelector('input[name="seatSelection"]:checked')?.value || '';
+
+    let mealCharge = 0;
+    if (meal !== 'No Meal') mealCharge = 300;
+
+    let baggageCharge = 0;
+    switch (baggage) {
+      case '20 kg': baggageCharge = 500; break;
+      case '24 kg': baggageCharge = 750; break;
+      case '28 kg': baggageCharge = 1000; break;
+      case '32 kg': baggageCharge = 1250; break;
+      default: baggageCharge = 0;
+    }
+
+    const flightPrice = parseInt(form.dataset.flightPrice); 
+    const totalPrice = flightPrice + mealCharge + baggageCharge;
+
+    document.getElementById('modalFullName').innerText = fullName;
+    document.getElementById('modalEmail').innerText = email;
+    document.getElementById('modalPassport').innerText = passportID;
+    document.getElementById('modalFlight').innerText = flightNum;
+    document.getElementById('modalSeat').innerText = seatSelection;
+    document.getElementById('modalMeal').innerText = meal;
+    document.getElementById('modalBaggage').innerText = baggage;
+    document.getElementById('modalFlightPrice').innerText = flightPrice;
+    document.getElementById('modalMealPrice').innerText = mealCharge;
+    document.getElementById('modalBaggagePrice').innerText = baggageCharge;
+    document.getElementById('modalTotalPrice').innerText = totalPrice;
+  });
+
+  confirmBtn.addEventListener('click', function() {
+    form.submit();
+  });
+</script>
+  
+
