@@ -15,7 +15,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
     await User.deleteMany({
-        username: {$in: ['testClient', 'testAdmin']}
+        username: {$in: ['testAdmin']}
     });
     await mongoose.connection.close();
 });
