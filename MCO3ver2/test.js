@@ -22,14 +22,14 @@ afterAll(async () => {
 
 
 describe('Login', () => {
-    
+
     it('Should register client users', async () => {
         const res = await client.post('/users/register').send({
-                username: 'testClient',
-                password: '12345678',
-                email: 'testClient@gmail.com',
-                role: 'Client'
-            });
+            username: 'testClient',
+            password: '12345678',
+            email: 'testClient@gmail.com',
+            role: 'Client'
+        });
         expect(res.statusCode).toBe(302)
         expect(res.headers.location).toBe('/users/login');
 
@@ -61,8 +61,8 @@ describe('Client Profile Update', () => {
 
         const res = await client.post('/users/profile/update').send(updatedData);
                 
-            expect(res.statusCode).toBe(302);
-            expect(res.headers.location).toBe('/client/profile?status=1');
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe('/client/profile?status=1');
     });
 
     it('Should update client password successfully', async () => {
@@ -75,8 +75,8 @@ describe('Client Profile Update', () => {
 
         const res = await client.post('/users/profile/update').send(updatedData);
                 
-            expect(res.statusCode).toBe(302);
-            expect(res.headers.location).toBe('/client/profile?status=1');
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe('/client/profile?status=1');
 
     });
 
@@ -88,12 +88,10 @@ describe('Client Profile Update', () => {
             confirmPassword: 'failtest1234'
         };
 
-        const res = await client
-            .post('/users/profile/update')
-            .send(updatedData);
+        const res = await client.post('/users/profile/update').send(updatedData);
                 
-            expect(res.statusCode).toBe(302);
-            expect(res.headers.location).toBe('/client/profile?error=2');
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe('/client/profile?error=2');
     });
 
     test('Fails as username is invalid', async () => {
@@ -106,8 +104,8 @@ describe('Client Profile Update', () => {
 
         const res = await client.post('/users/profile/update').send(updatedData);
                 
-            expect(res.statusCode).toBe(302);
-            expect(res.headers.location).toBe('/client/profile?error=3');
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe('/client/profile?error=3');
     });
 
     // force revert
@@ -119,7 +117,6 @@ describe('Client Profile Update', () => {
         clientUser.password = '12345678';
         await clientUser.save();
     });
-
 
 });
 
@@ -174,8 +171,6 @@ describe('Flight Creation', () => {
     });
 });
 
-
-// Test Booking
 describe('Client Booking', () => {
 
     test('Client can render book flight', async () => {
@@ -195,9 +190,9 @@ describe('Client Booking', () => {
     test('Client can register to a flight', async () => {
         const flight = await Flight.findOne({flightNum: 'BB123'});
         const res = await client.post('/client/register').send({
-                flightId: flight._id,
-                passengerCount: 1
-            });
+            flightId: flight._id,
+            passengerCount: 1
+        });
 
         expect(res.statusCode).toBe(200);
         expect(res.text).toContain("Reservation Form");
@@ -209,15 +204,15 @@ describe('Client Booking', () => {
         const clientUser = await User.findOne({username: 'testClient'});
 
         const res = await client.post('/client/submitReservation').send({
-                fullName: clientUser.username,
-                email: clientUser.email,
-                passportID: 'A1234567',
-                flightNum: flight.flightNum,
-                meal: 'Standard',
-                baggage: '20 kg',
-                seatSelection: 'A1',
-                passengerCount: 1
-            });
+            fullName: clientUser.username,
+            email: clientUser.email,
+            passportID: 'A1234567',
+            flightNum: flight.flightNum,
+            meal: 'Standard',
+            baggage: '20 kg',
+            seatSelection: 'A1',
+            passengerCount: 1
+        });
 
         expect(res.statusCode).toBe(302);
         expect(res.headers.location).toBe('/client/success');
